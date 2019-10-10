@@ -26,11 +26,12 @@ public class HoverController : MonoBehaviour
     float jumpForce = 5;
     [SerializeField]
     float flyingSpeedMultiplier = 0.5f;
-    Vector3 targetVelocity = Vector3.zero;
+    [HideInInspector]
+    public Vector3 targetVelocity = Vector3.zero;
 
     [Header("Boost")]
     [SerializeField]
-    float boostMultiplier;
+    float boostMultiplier = 1;
     float crntBoost;
     float crntBoostTime;
     float crntMaxBoostTime;
@@ -41,7 +42,8 @@ public class HoverController : MonoBehaviour
     float turnSpeed = 2;
     [SerializeField]
     float turnSpeedInterpolation = 4;
-    Quaternion targetRot;
+    [HideInInspector]
+    public Quaternion targetRot;
     [SerializeField]
     float rotationInterpolation = 1;
     [SerializeField]
@@ -89,6 +91,8 @@ public class HoverController : MonoBehaviour
     CinemachineVirtualCamera CVC;
     [SerializeField]
     Vector3 CVCFlyingOffset;
+    [SerializeField]
+    Vector3 CVCSharpRotOffset;
     Vector3 CVCTargetPosition;
     [SerializeField]
     float CVCPositionInterpolation = 1;
@@ -97,6 +101,7 @@ public class HoverController : MonoBehaviour
     Vector3 CVCOffset;
     [SerializeField]
     bool usingPS4Controller = false;
+    RaceManager raceManager;
 
     [SerializeField]
     float velMag;
@@ -114,6 +119,8 @@ public class HoverController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         CVCOffset = CVC.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset;
         spawnPos = transform.position;
+
+        raceManager = FindObjectOfType<RaceManager>();
     }
 
     void Update()
@@ -129,12 +136,11 @@ public class HoverController : MonoBehaviour
             vertInput = R2 + L2;
         }
         if (Input.GetKeyDown(KeyCode.T))
-            transform.position = spawnPos;
+            raceManager.PlayerRespawn(this.gameObject);
 
         timeSinceGroundSensed += Time.deltaTime;
         crntBoostTime += Time.deltaTime;
         
-            
        
     }
 
@@ -147,11 +153,11 @@ public class HoverController : MonoBehaviour
         {
             timeSinceGroundSensed = 0;
             groundSensed = true;
+            CVCTargetPosition = CVCOffset;
             if (hit.distance > hoverHeight) { grounded = false; }
             else {
                 grounded = true;
                 crntGravity = 0;
-                CVCTargetPosition = CVCOffset;
             }
             Vector3 targetPos = hit.point + (transform.rotation.normalized * new Vector3(0, hoverHeight, 0));
             hitPoint = hit.point;
@@ -221,13 +227,15 @@ public class HoverController : MonoBehaviour
        
         //Final Velo
         rb.velocity = Vector3.Lerp(rb.velocity, targetVelocity, Time.deltaTime * velocityInterpolation);
-        //Camera
-        CVC.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = Mathf.InverseLerp(0, CVCNoiseLerpMax, rb.velocity.magnitude);
-        CVC.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset = Vector3.Lerp(CVC.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset, CVCTargetPosition, Time.deltaTime * CVCPositionInterpolation);
         //Debug Info
         velMag = rb.velocity.magnitude;
         rotDifferences = Quaternion.Angle(transform.rotation, targetRot);
         forwardVelMag = Mathf.Abs(transform.InverseTransformDirection(rb.velocity).z);
+        //Camera
+        if (rotDifferences > 10) { CVCTargetPosition = CVCSharpRotOffset; }
+        CVC.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = Mathf.InverseLerp(0, CVCNoiseLerpMax, rb.velocity.magnitude);
+        CVC.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset = Vector3.Slerp(CVC.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset, CVCTargetPosition, Time.deltaTime * CVCPositionInterpolation * rotDifferences);
+
 
     }
 

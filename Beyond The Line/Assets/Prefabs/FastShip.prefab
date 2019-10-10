@@ -373,7 +373,7 @@ MonoBehaviour:
   velocityInterpolation: 1
   jumpForce: 5
   flyingSpeedMultiplier: 0.5
-  boostMultiplier: 0
+  boostMultiplier: 1
   turnSpeed: 2
   turnSpeedInterpolation: 4
   rotationInterpolation: 1
@@ -485,12 +485,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 2d0cdb3b3c6407444a7f7b642bdca3a5, type: 2}
+      objectReference: {fileID: 2100000, guid: 450effedc2240194198e6d9fd1d159b1, type: 2}
     - target: {fileID: -1504981713932161579, guid: dc3a6c1cd0c4da0448324512b25e8392,
         type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: 2d0cdb3b3c6407444a7f7b642bdca3a5, type: 2}
+      objectReference: {fileID: 2100000, guid: 450effedc2240194198e6d9fd1d159b1, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc3a6c1cd0c4da0448324512b25e8392, type: 3}
 --- !u!1 &102327628600589103 stripped
