@@ -329,8 +329,8 @@ InputManager:
     m_Name: Strafe
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: e
-    positiveButton: q
+    negativeButton: mouse 1
+    positiveButton: mouse 0
     altNegativeButton: joystick button 5
     altPositiveButton: joystick button 4
     gravity: 3
