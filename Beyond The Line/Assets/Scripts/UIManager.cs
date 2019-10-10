@@ -7,13 +7,12 @@ using System;
 
 public class UIManager : MonoBehaviour
 {
-    public enum UIMode {Race, EndRace }
+    public enum UIMode {Race, EndRace, StartRace }
     public UIMode crntMode = UIMode.Race;
     UIMode oldMode;
     Dictionary<UIMode, CanvasGroup> modeToCanvas;
     #region RaceUI
-    [SerializeField]
-    CanvasGroup RaceCanvas;
+    public CanvasGroup raceCanvas;
     [SerializeField]
     TextMeshProUGUI lapCount;
     public TextMeshProUGUI crntLapTime;
@@ -27,22 +26,27 @@ public class UIManager : MonoBehaviour
     #region EndRaceUI
     [SerializeField]
     CanvasGroup endRaceCanvas;
+    public TextMeshProUGUI endRaceTotalTime;
+    public TextMeshProUGUI endRaceBestTime;
+    public float totalLapTimes;
     #endregion
-
-    RaceManager raceManager;
+    public RaceManager raceManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        modeToCanvas.Add(UIMode.Race, RaceCanvas);
+        modeToCanvas = new Dictionary<UIMode, CanvasGroup>();
+        modeToCanvas.Add(UIMode.Race, raceCanvas);
         modeToCanvas.Add(UIMode.EndRace, endRaceCanvas);
-        raceManager = FindObjectOfType<RaceManager>();
+        oldMode = crntMode;
     }
+
 
     // Update is called once per frame
     void Update()
     {
         CheckModeChange();
+        if (crntMode == UIMode.EndRace) { UpdateEndRaceUI(); }
         float crntLapTimeNum = raceManager.crntLapTime;
         crntLapTime.text = Mathf.Floor(crntLapTimeNum / 60).ToString("00") + ":" + (crntLapTimeNum % 60).ToString("00") + ":" + ((crntLapTimeNum*1000) % 1000).ToString("00");
         lapCount.text = raceManager.crntLap.ToString() + "/" + raceManager.numberOfLaps.ToString();
@@ -53,6 +57,8 @@ public class UIManager : MonoBehaviour
     {
         if(oldMode != crntMode)
         {
+            Debug.Log(oldMode);
+            Debug.Log(crntMode);
             modeToCanvas[oldMode].alpha = 0;
             modeToCanvas[crntMode].alpha = 1;
             oldMode = crntMode;
@@ -64,5 +70,10 @@ public class UIManager : MonoBehaviour
         bestLapTime.text = Mathf.Floor(time / 60).ToString("00") + ":" + (time % 60).ToString("00") + ":" + ((time * 1000) % 1000).ToString("00");
     }
 
+    public void UpdateEndRaceUI()
+    {
+        endRaceTotalTime.text = Mathf.Floor(totalLapTimes / 60).ToString("00") + ":" + (totalLapTimes % 60).ToString("00") + ":" + ((totalLapTimes * 1000) % 1000).ToString("00");
+        endRaceBestTime.text = bestLapTime.text;
+    }
     
 }

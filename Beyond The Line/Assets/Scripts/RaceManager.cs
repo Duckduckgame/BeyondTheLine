@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
+using UnityEngine.SceneManagement;
 
 public class RaceManager : MonoBehaviour
 {
@@ -13,7 +15,9 @@ public class RaceManager : MonoBehaviour
     public float crntLap = 1;
     public float crntLapTime = 0;
     float bestLap = 0;
+    float totalLapTimes = 0;
 
+    float deathCount = 0;
     UIManager uIManager;
 
 
@@ -41,6 +45,7 @@ public class RaceManager : MonoBehaviour
 
     public void PlayerRespawn(GameObject player)
     {
+        deathCount++;
         player.GetComponent<Rigidbody>().velocity = Vector3.zero;
         HoverController hoverController = player.GetComponent <HoverController>();
         player.transform.position = checkpoints[crntCheckpoint].transform.position;
@@ -51,15 +56,17 @@ public class RaceManager : MonoBehaviour
 
     public void FinishedLapUI()
     {
-        if (checkpointHandlers[checkpointHandlers.Length - 2].hasPassed == true)
+        if (true/*checkpointHandlers[checkpointHandlers.Length - 2].hasPassed == true*/)
         {
             Debug.Log("lap ended at " + uIManager.crntLapTime.text);
-            if (uIManager.bestLapSet == false)
+            if (uIManager.bestLapSet == false || uIManager.bestLapTimeNum > crntLapTime)
             {
                 uIManager.bestLapTimeNum = crntLapTime;
                 uIManager.bestLapSet = true;
                 uIManager.SetBestLapTime(crntLapTime);
+                bestLap = crntLapTime;
             }
+            totalLapTimes += crntLapTime;
 
             crntLapTime = 0;
             crntLap++;
@@ -84,11 +91,16 @@ public class RaceManager : MonoBehaviour
         for (int i = 0; i < checkpoints.Length; i++)
         {
             checkpoints[i].GetComponent<CheckpointHandler>().hasPassed = false;
+            
         }
     }
 
     void EndRace() {
         Debug.Log("Race Over");
+        string scene = SceneManager.GetActiveScene().name.ToString();
+        Analytics.CustomEvent("raceEnd", new Dictionary<string, object> { { "Track", scene }, {"TotalTime", totalLapTimes }, {"BestLapTime", bestLap}, {"NumberOfLaps" } {"DeathCount", deathCount } });
+        uIManager.totalLapTimes = totalLapTimes;
         uIManager.crntMode = UIManager.UIMode.EndRace;
+        
     }
 }

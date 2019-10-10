@@ -3490,39 +3490,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1439414780}
   m_CullTransparentMesh: 0
---- !u!1 &1492413445 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 40399870940034371, guid: c1419dd6d4a22bb4e892a1c0055273e4,
+--- !u!114 &1492413446 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1492413446, guid: c1419dd6d4a22bb4e892a1c0055273e4,
     type: 3}
   m_PrefabInstance: {fileID: 2282244624199950083}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1492413446
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1492413445}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 18d9d260cb5ac3d4580d493d75994109, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkpoints:
-  - {fileID: 665882534}
-  - {fileID: 1632529787}
-  - {fileID: 69033582}
-  - {fileID: 951198009}
-  - {fileID: 2106021894}
-  - {fileID: 1960063727}
-  - {fileID: 389845208}
-  - {fileID: 37841979}
-  - {fileID: 125289747}
-  - {fileID: 631613446}
-  crntCheckpoint: 0
-  numberOfLaps: 2
-  crntLap: 1
-  crntLapTime: 0
 --- !u!1001 &1502823349
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4922,8 +4901,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89f5a1e027ecb5e4a85af65b6f4f42f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  crntMode: 1
-  RaceCanvas: {fileID: 1605568433}
+  crntMode: 0
+  raceCanvas: {fileID: 1605568433}
   lapCount: {fileID: 731603742}
   crntLapTime: {fileID: 637400405}
   bestLapTime: {fileID: 117393495}
@@ -4931,6 +4910,10 @@ MonoBehaviour:
   bestLapSet: 0
   bestLapChange: 0
   endRaceCanvas: {fileID: 2062357287}
+  endRaceTotalTime: {fileID: 1695106341}
+  endRaceBestTime: {fileID: 482178409}
+  totalLapTimes: 0
+  raceManager: {fileID: 1492413446}
 --- !u!1 &2106021894 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2590382669282359653, guid: 10e519992322e56478ca1a61f24a9a8c,
@@ -5109,6 +5092,50 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1492413446, guid: c1419dd6d4a22bb4e892a1c0055273e4, type: 3}
+      propertyPath: checkpoints.Array.data[0]
+      value: 
+      objectReference: {fileID: 665882534}
+    - target: {fileID: 1492413446, guid: c1419dd6d4a22bb4e892a1c0055273e4, type: 3}
+      propertyPath: checkpoints.Array.data[1]
+      value: 
+      objectReference: {fileID: 1632529787}
+    - target: {fileID: 1492413446, guid: c1419dd6d4a22bb4e892a1c0055273e4, type: 3}
+      propertyPath: checkpoints.Array.data[2]
+      value: 
+      objectReference: {fileID: 69033582}
+    - target: {fileID: 1492413446, guid: c1419dd6d4a22bb4e892a1c0055273e4, type: 3}
+      propertyPath: checkpoints.Array.data[3]
+      value: 
+      objectReference: {fileID: 951198009}
+    - target: {fileID: 1492413446, guid: c1419dd6d4a22bb4e892a1c0055273e4, type: 3}
+      propertyPath: checkpoints.Array.data[4]
+      value: 
+      objectReference: {fileID: 2106021894}
+    - target: {fileID: 1492413446, guid: c1419dd6d4a22bb4e892a1c0055273e4, type: 3}
+      propertyPath: checkpoints.Array.data[5]
+      value: 
+      objectReference: {fileID: 1960063727}
+    - target: {fileID: 1492413446, guid: c1419dd6d4a22bb4e892a1c0055273e4, type: 3}
+      propertyPath: checkpoints.Array.data[6]
+      value: 
+      objectReference: {fileID: 389845208}
+    - target: {fileID: 1492413446, guid: c1419dd6d4a22bb4e892a1c0055273e4, type: 3}
+      propertyPath: checkpoints.Array.data[7]
+      value: 
+      objectReference: {fileID: 37841979}
+    - target: {fileID: 1492413446, guid: c1419dd6d4a22bb4e892a1c0055273e4, type: 3}
+      propertyPath: checkpoints.Array.data[8]
+      value: 
+      objectReference: {fileID: 125289747}
+    - target: {fileID: 1492413446, guid: c1419dd6d4a22bb4e892a1c0055273e4, type: 3}
+      propertyPath: checkpoints.Array.data[9]
+      value: 
+      objectReference: {fileID: 631613446}
+    - target: {fileID: 1492413446, guid: c1419dd6d4a22bb4e892a1c0055273e4, type: 3}
+      propertyPath: numberOfLaps
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c1419dd6d4a22bb4e892a1c0055273e4, type: 3}
@@ -5312,6 +5339,11 @@ PrefabInstance:
         type: 3}
       propertyPath: CVCSharpRotOffset.z
       value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5562977915845666443, guid: 8370d39fe32b1304999f5cd65f39d670,
+        type: 3}
+      propertyPath: usingPS4Controller
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8370d39fe32b1304999f5cd65f39d670, type: 3}
