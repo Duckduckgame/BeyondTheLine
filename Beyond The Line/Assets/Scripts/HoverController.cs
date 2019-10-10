@@ -232,7 +232,6 @@ public class HoverController : MonoBehaviour
         rotDifferences = Quaternion.Angle(transform.rotation, targetRot);
         forwardVelMag = Mathf.Abs(transform.InverseTransformDirection(rb.velocity).z);
         //Camera
-        if (rotDifferences > 10) { CVCTargetPosition = CVCSharpRotOffset; }
         CVC.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = Mathf.InverseLerp(0, CVCNoiseLerpMax, rb.velocity.magnitude);
         CVC.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset = Vector3.Slerp(CVC.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset, CVCTargetPosition, Time.deltaTime * CVCPositionInterpolation * rotDifferences);
 

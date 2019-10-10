@@ -4923,14 +4923,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   crntMode: 1
-  RaceCanvas: {fileID: 1605568436}
+  RaceCanvas: {fileID: 1605568433}
   lapCount: {fileID: 731603742}
   crntLapTime: {fileID: 637400405}
   bestLapTime: {fileID: 117393495}
   bestLapTimeNum: 0
   bestLapSet: 0
   bestLapChange: 0
-  endRaceCanvas: {fileID: 2062357290}
+  endRaceCanvas: {fileID: 2062357287}
 --- !u!1 &2106021894 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2590382669282359653, guid: 10e519992322e56478ca1a61f24a9a8c,
