@@ -6,7 +6,13 @@ using TMPro;
 
 public class MainMenuUIManager : MonoBehaviour
 {
+    [SerializeField]
     Button raceBut;
+    [SerializeField]
+    Button optionsBut;
+    [SerializeField]
+    Button exitBut;
+
     // Start is called before the first frame update
     void Start()
     {

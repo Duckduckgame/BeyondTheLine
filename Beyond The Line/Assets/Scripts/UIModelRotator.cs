@@ -8,7 +8,11 @@ public class UIModelRotator : MonoBehaviour
     [SerializeField]
     float moveMultiplier = 1;
     [SerializeField]
-    float rotSpeed;
+    float rotSpeedX;
+    [SerializeField]
+    float rotSpeedY;
+    [SerializeField]
+    float rotSpeedZ;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +24,6 @@ public class UIModelRotator : MonoBehaviour
     void Update()
     {
         transform.position = startPos+ new Vector3(0, Mathf.Sin(Time.time), 0.0f) * moveMultiplier;
-        transform.localRotation *= Quaternion.Euler(new Vector3(0, 0, rotSpeed));
+        transform.localRotation *= Quaternion.Euler(new Vector3(rotSpeedX, rotSpeedY, rotSpeedZ));
     }
 }
