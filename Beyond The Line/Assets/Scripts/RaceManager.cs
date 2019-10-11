@@ -98,7 +98,7 @@ public class RaceManager : MonoBehaviour
     void EndRace() {
         Debug.Log("Race Over");
         string scene = SceneManager.GetActiveScene().name.ToString();
-        Analytics.CustomEvent("raceEnd", new Dictionary<string, object> { { "Track", scene }, {"TotalTime", totalLapTimes }, {"BestLapTime", bestLap}, {"NumberOfLaps" } {"DeathCount", deathCount } });
+        Analytics.CustomEvent("raceEnd", new Dictionary<string, object> { { "Track", scene }, {"TotalTime", totalLapTimes }, {"BestLapTime", bestLap}, {"NumberOfLaps", numberOfLaps }, {"DeathCount", deathCount } });
         uIManager.totalLapTimes = totalLapTimes;
         uIManager.crntMode = UIManager.UIMode.EndRace;
         
