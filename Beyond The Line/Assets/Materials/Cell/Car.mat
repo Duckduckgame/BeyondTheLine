@@ -37,9 +37,13 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Boolean_D720E0B1: 0
     - Vector1_5B6DA623: 0.3
     - Vector1_71424CB1: 9.16
     - Vector1_B018FD82: -35.9
     - Vector1_B31751FB: 100
+    - Vector1_C54535C6: 1
     m_Colors:
+    - Vector2_48D9FCBD: {r: 1, g: 1, b: 0, a: 0}
     - Vector2_6DDCBC7A: {r: 0.01, g: 1, b: 0, a: 0}
+    - Vector3_A8C3779F: {r: 1, g: 1, b: 1, a: 0}

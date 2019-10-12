@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/Menus/MainMenu.unity
+- path: E:/Work/UniversalRenderingExamples-release-2019.1/Assets/_CompletedDemos/ToonOutlinePostprocessCompleted/ToonOutlinePost.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
