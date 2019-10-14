@@ -376,7 +376,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 030b4616ef41ea14a9161c0b7796beca,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.29
+      value: 0.66
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 030b4616ef41ea14a9161c0b7796beca,
         type: 3}
@@ -1322,7 +1322,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 5c4b2b39c1edaa94ea97ff661678d9d6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

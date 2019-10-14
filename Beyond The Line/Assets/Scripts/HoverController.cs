@@ -73,6 +73,8 @@ public class HoverController : MonoBehaviour
     [SerializeField]
     float springForce = 150;
     [SerializeField]
+    float springClamp = 250;
+    [SerializeField]
     float timeSinceGroundSensed;
     Vector3 hitPoint;
 
@@ -163,7 +165,10 @@ public class HoverController : MonoBehaviour
             hitPoint = hit.point;
 
             float springCompression = ((Mathf.InverseLerp(0.2f, hoverHeight * 2, Vector3.Distance(transform.position, hit.point)) * 2) - 1) * -1;
-            targetVelocityDirection += (transform.up * springCompression * springForce);
+            float usedSpringforce = springForce;
+            if (springCompression > 0) usedSpringforce *=0.1f;
+            Vector3 springVelocity = transform.up * springCompression * usedSpringforce;
+            targetVelocityDirection += Vector3.ClampMagnitude(springVelocity, springClamp);
             
             
         }

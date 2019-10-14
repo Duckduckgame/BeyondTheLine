@@ -20,6 +20,8 @@ public class RaceManager : MonoBehaviour
     float deathCount = 0;
     UIManager uIManager;
 
+    Vector3 startPos;
+
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +37,7 @@ public class RaceManager : MonoBehaviour
         }
 
         checkpoints[0].GetComponent<CheckpointHandler>().firstCheckpoint = true;
+        startPos = checkpoints[0].transform.position + new Vector3(0, 0, 10);
     }
 
     // Update is called once per frame

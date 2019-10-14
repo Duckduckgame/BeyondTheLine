@@ -8,13 +8,13 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: UIBG
-  m_Shader: {fileID: -6465566751694194690, guid: b7b46fb4195d90d4fa2ff73e920864a4,
+  m_Shader: {fileID: -6465566751694194690, guid: 3730ea350022ca045befb57680d04ead,
     type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
+  m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
@@ -33,8 +33,12 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Boolean_D720E0B1: 0
     - Vector1_5B6DA623: 0.3
     - Vector1_71424CB1: 11
     - Vector1_B31751FB: 32
+    - Vector1_C54535C6: 1
     m_Colors:
+    - Vector2_48D9FCBD: {r: 1, g: 1, b: 0, a: 0}
     - Vector2_6DDCBC7A: {r: 0.01, g: 0.02, b: 0, a: 0}
+    - Vector3_A8C3779F: {r: 1, g: 1, b: 1, a: 0}
