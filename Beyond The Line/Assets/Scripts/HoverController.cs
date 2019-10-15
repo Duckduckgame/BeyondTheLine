@@ -75,6 +75,8 @@ public class HoverController : MonoBehaviour
     [SerializeField]
     float springClamp = 250;
     [SerializeField]
+    float upSpringForceClamp = 0.5f;
+    [SerializeField]
     float timeSinceGroundSensed;
     Vector3 hitPoint;
 
@@ -166,8 +168,9 @@ public class HoverController : MonoBehaviour
 
             float springCompression = ((Mathf.InverseLerp(0.2f, hoverHeight * 2, Vector3.Distance(transform.position, hit.point)) * 2) - 1) * -1;
             float usedSpringforce = springForce;
-            if (springCompression > 0) usedSpringforce *=0.1f;
             Vector3 springVelocity = transform.up * springCompression * usedSpringforce;
+            if (springCompression > 0) {springVelocity = Vector3.ClampMagnitude(springVelocity, upSpringForceClamp); Debug.Log(springVelocity.magnitude); }
+            
             targetVelocityDirection += Vector3.ClampMagnitude(springVelocity, springClamp);
             
             
@@ -184,7 +187,7 @@ public class HoverController : MonoBehaviour
         targetRot = Quaternion.Lerp(targetRot, Quaternion.FromToRotation(transform.up, Vector3.up) * transform.rotation, Time.deltaTime * rotationInterpolation);
         if(timeSinceGroundSensed > hangTime)
         targetRot = Quaternion.Euler(targetRot.eulerAngles.x, transform.rotation.eulerAngles.y, targetRot.eulerAngles.z);
-            if(timeSinceGroundSensed > 2f)
+            if(timeSinceGroundSensed > hangTime)
         CVCTargetPosition = CVCFlyingOffset;
         }
 
@@ -307,4 +310,5 @@ public class HoverController : MonoBehaviour
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireSphere(hitPoint, 0.2f);
     }
+
 }

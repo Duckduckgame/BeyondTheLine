@@ -54,6 +54,7 @@ Material:
     - Vector1_B31751FB: 2.45
     - Vector1_C54535C6: 1
     m_Colors:
+    - Color_D845560C: {r: 0.592002, g: 0.8962264, b: 0.58762014, a: 0}
     - Vector2_48D9FCBD: {r: 50, g: 50, b: 1, a: 1}
     - Vector2_6DDCBC7A: {r: 0.01, g: 0.2, b: 0, a: 0}
     - Vector2_E7C6E9B: {r: 50, g: 50, b: 1, a: 1}

@@ -48,7 +48,7 @@ public class UIManager : MonoBehaviour
         CheckModeChange();
         if (crntMode == UIMode.EndRace) { UpdateEndRaceUI(); }
         float crntLapTimeNum = raceManager.crntLapTime;
-        crntLapTime.text = Mathf.Floor(crntLapTimeNum / 60).ToString("00") + ":" + (crntLapTimeNum % 60).ToString("00") + ":" + ((crntLapTimeNum*1000) % 1000).ToString("00");
+        crntLapTime.text = Mathf.Floor(crntLapTimeNum / 60).ToString("00") + ":" + (crntLapTimeNum % 60).ToString("00") + ":" + ((crntLapTimeNum*100) % 100).ToString("##");
         lapCount.text = raceManager.crntLap.ToString() + "/" + raceManager.numberOfLaps.ToString();
         oldMode = crntMode;
     }
