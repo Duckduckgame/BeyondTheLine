@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
-using System;
+using UnityEngine.Rendering.PostProcessing;
 
 [RequireComponent(typeof(Rigidbody))]
 public class HoverController : MonoBehaviour
 {
-
+   
     Rigidbody rb;
     float horiInput;
     float vertInput;
@@ -106,6 +106,7 @@ public class HoverController : MonoBehaviour
     [SerializeField]
     bool usingPS4Controller = false;
     RaceManager raceManager;
+    PostProcessVolume PPV;
 
     [SerializeField]
     float velMag;
@@ -113,6 +114,7 @@ public class HoverController : MonoBehaviour
     float forwardVelMag;
     [SerializeField]
     float rotDifferences;
+
 
     Vector3 lerpPoint;
 
@@ -123,8 +125,11 @@ public class HoverController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         CVCOffset = CVC.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset;
         spawnPos = transform.position;
-
+        PPV = FindObjectOfType<PostProcessVolume>();
         raceManager = FindObjectOfType<RaceManager>();
+
+
+        
     }
 
     void Update()
@@ -242,6 +247,17 @@ public class HoverController : MonoBehaviour
         //Camera
         CVC.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = Mathf.InverseLerp(0, CVCNoiseLerpMax, rb.velocity.magnitude);
         CVC.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset = Vector3.Slerp(CVC.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset, CVCTargetPosition, Time.deltaTime * CVCPositionInterpolation * rotDifferences);
+        float distortionLerp = Mathf.InverseLerp(maxAcceleration, 1000, rb.velocity.magnitude);
+        LensDistortion lensDistortion;
+        ChromaticAberration chromaticAberration;
+        if(PPV.profile.TryGetSettings(out lensDistortion))
+        {
+            lensDistortion.intensity.value = -100 * distortionLerp;
+        }
+        if (PPV.profile.TryGetSettings(out chromaticAberration))
+        {
+            chromaticAberration.intensity.value = 1 * distortionLerp;
+        }
 
 
     }

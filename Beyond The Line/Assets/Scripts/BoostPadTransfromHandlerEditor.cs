@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
+[SelectionBase]
 [ExecuteAlways]
 public class BoostPadTransfromHandlerEditor : MonoBehaviour
 {
+
     [SerializeField]
     bool checkGround;
     [SerializeField]
