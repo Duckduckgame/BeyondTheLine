@@ -59,7 +59,7 @@ public class RaceManager : MonoBehaviour
 
     public void FinishedLapUI()
     {
-        if (true/*checkpointHandlers[checkpointHandlers.Length - 2].hasPassed == true*/)
+        if (checkpointHandlers[checkpointHandlers.Length - 2].hasPassed == true)
         {
             Debug.Log("lap ended at " + uIManager.crntLapTime.text);
             if (uIManager.bestLapSet == false || uIManager.bestLapTimeNum > crntLapTime)
