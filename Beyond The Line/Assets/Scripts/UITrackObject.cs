@@ -8,22 +8,23 @@ public class UITrackObject : MonoBehaviour
     Button button;
     GameObject trackPreview;
 
+    
+    public int sceneIndexToLoad;
 
-    public Transform targetPos;
+    public Vector3 targetPos;
 
-    [SerializeField]
-    float slerpSpeed = 0.5f;
+    float slerpSpeed = 4;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        targetPos = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position = Vector3.Slerp(transform.position, targetPos.position, Time.deltaTime * slerpSpeed);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetPos.rotation, Time.deltaTime * slerpSpeed);
+        transform.position = Vector3.Slerp(transform.position, targetPos, Time.deltaTime * slerpSpeed);
     }
+
 }
