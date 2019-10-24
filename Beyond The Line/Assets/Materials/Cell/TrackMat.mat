@@ -36,8 +36,12 @@ Material:
         m_Texture: {fileID: 2800000, guid: cbacf009fcd0e484fbd57889972642c5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_AECA3C56_Out_0:
+        m_Texture: {fileID: 2800000, guid: 587ff1d83f703f342b78dfc918d28982, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Boolean_D720E0B1: 1
+    - Boolean_D720E0B1: 0
     - Vector1_5B6DA623: 58.3
     - Vector1_71424CB1: 2.17
     - Vector1_B018FD82: 0

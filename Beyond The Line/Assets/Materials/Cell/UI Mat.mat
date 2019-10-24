@@ -24,5 +24,14 @@ Material:
         m_Texture: {fileID: 2800000, guid: 0f87ff2724857ee4bab400c71916430a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_334042E4_Out_0:
+        m_Texture: {fileID: 2800000, guid: 60ebabe061f85c14f9a1f90b3604e751, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_97FDB332_Out_0:
+        m_Texture: {fileID: 2800000, guid: cbacf009fcd0e484fbd57889972642c5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats: []
-    m_Colors: []
+    m_Colors:
+    - Color_9D0DD425: {r: 7.216667, g: 32, b: 0, a: 0}
