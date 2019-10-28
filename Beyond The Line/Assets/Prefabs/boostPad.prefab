@@ -46,6 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   checkGround: 0
+  boostStrength: 300
+  boostTime: 2
 --- !u!65 &8280769346157227024
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -70,6 +72,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SPEEDPAD
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: e4c6531f6399c57499340b15f6a5cc89,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: e4c6531f6399c57499340b15f6a5cc89,
         type: 3}

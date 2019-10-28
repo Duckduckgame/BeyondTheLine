@@ -115,6 +115,10 @@ public class HoverController : MonoBehaviour
     [SerializeField]
     float rotDifferences;
 
+    [SerializeField]
+    Transform myTransform;
+    Transform tran;
+
 
     Vector3 lerpPoint;
 
@@ -127,6 +131,8 @@ public class HoverController : MonoBehaviour
         spawnPos = transform.position;
         PPV = FindObjectOfType<PostProcessVolume>();
         raceManager = FindObjectOfType<RaceManager>();
+
+        tran = myTransform;
 
 
         
