@@ -22,6 +22,12 @@ public class RaceManager : MonoBehaviour
 
     Vector3 startPos;
 
+    [SerializeField]
+    bool raceOver = false;
+    float timeSinceRaceOver;
+    [SerializeField]
+    float waitUntilLoad;
+
 
     // Start is called before the first frame update
     void Start()
@@ -44,6 +50,16 @@ public class RaceManager : MonoBehaviour
     void Update()
     {
         crntLapTime += Time.deltaTime;
+
+        if (raceOver)
+        {
+            timeSinceRaceOver += Time.deltaTime;
+        }
+
+        if(timeSinceRaceOver > waitUntilLoad)
+        {
+            SceneManager.LoadSceneAsync(0);
+        }
     }
 
     public void PlayerRespawn(GameObject player)
@@ -104,6 +120,6 @@ public class RaceManager : MonoBehaviour
         Analytics.CustomEvent("raceEnd", new Dictionary<string, object> { { "Track", scene }, {"TotalTime", totalLapTimes }, {"BestLapTime", bestLap}, {"NumberOfLaps", numberOfLaps }, {"DeathCount", deathCount } });
         uIManager.totalLapTimes = totalLapTimes;
         uIManager.crntMode = UIManager.UIMode.EndRace;
-        
+        raceOver = true;
     }
 }

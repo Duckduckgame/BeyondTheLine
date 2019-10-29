@@ -58,3 +58,5 @@ MonoBehaviour:
   numberOfLaps: 2
   crntLap: 1
   crntLapTime: 0
+  raceOver: 0
+  waitUntilLoad: 1.5

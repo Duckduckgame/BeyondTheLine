@@ -107,6 +107,8 @@ public class HoverController : MonoBehaviour
     bool usingPS4Controller = false;
     RaceManager raceManager;
     PostProcessVolume PPV;
+    [SerializeField]
+    float distortVelocityMax = 1000;
 
     [SerializeField]
     float velMag;
@@ -180,7 +182,6 @@ public class HoverController : MonoBehaviour
             float springCompression = ((Mathf.InverseLerp(0.2f, hoverHeight * 2, Vector3.Distance(transform.position, hit.point)) * 2) - 1) * -1;
             float usedSpringforce = springForce;
             Vector3 springVelocity = transform.up * springCompression * usedSpringforce;
-            if (springCompression > 0) {springVelocity = Vector3.ClampMagnitude(springVelocity, upSpringForceClamp); Debug.Log(springVelocity.magnitude); }
             
             targetVelocityDirection += Vector3.ClampMagnitude(springVelocity, springClamp);
             
@@ -253,7 +254,8 @@ public class HoverController : MonoBehaviour
         //Camera
         CVC.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = Mathf.InverseLerp(0, CVCNoiseLerpMax, rb.velocity.magnitude);
         CVC.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset = Vector3.Slerp(CVC.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset, CVCTargetPosition, Time.deltaTime * CVCPositionInterpolation * rotDifferences);
-        float distortionLerp = Mathf.InverseLerp(maxAcceleration, 1000, rb.velocity.magnitude);
+
+        float distortionLerp = Mathf.InverseLerp(maxAcceleration, distortVelocityMax, rb.velocity.magnitude);
         LensDistortion lensDistortion;
         ChromaticAberration chromaticAberration;
         if(PPV.profile.TryGetSettings(out lensDistortion))

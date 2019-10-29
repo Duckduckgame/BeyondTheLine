@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 556797029e73b2347956b6579e77e05b, type: 3}
   m_Name: DepthOfField
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   enabled:
     overrideState: 1
     value: 1
   focusDistance:
     overrideState: 1
-    value: 3.68
+    value: 3.58
   aperture:
     overrideState: 0
     value: 5.6
@@ -81,6 +81,7 @@ MonoBehaviour:
   - {fileID: -5319683129691686474}
   - {fileID: -3307700175139009873}
   - {fileID: 9220099077650124084}
+  - {fileID: 6881265337424321575}
 --- !u!114 &114252324386167986
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -99,7 +100,7 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 6.8
+    value: 6.77
   threshold:
     overrideState: 1
     value: 1
@@ -110,14 +111,14 @@ MonoBehaviour:
     overrideState: 0
     value: 65472
   diffusion:
-    overrideState: 0
-    value: 7
+    overrideState: 1
+    value: 8.39
   anamorphicRatio:
     overrideState: 0
     value: 0
   color:
     overrideState: 0
-    value: {r: 1, g: 1, b: 1, a: 1}
+    value: {r: 1.4142135, g: 0, b: 0, a: 1}
   fastMode:
     overrideState: 0
     value: 0
@@ -127,7 +128,7 @@ MonoBehaviour:
     defaultState: 1
   dirtIntensity:
     overrideState: 1
-    value: 1.68
+    value: 0.5
 --- !u!114 &114375464177707528
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -145,7 +146,7 @@ MonoBehaviour:
     overrideState: 1
     value: 1
   gradingMode:
-    overrideState: 0
+    overrideState: 1
     value: 1
   externalLut:
     overrideState: 0
@@ -198,7 +199,7 @@ MonoBehaviour:
     overrideState: 0
     value: 0
   postExposure:
-    overrideState: 1
+    overrideState: 0
     value: 0.42
   contrast:
     overrideState: 0
@@ -1483,6 +1484,28 @@ MonoBehaviour:
   opacity:
     overrideState: 0
     value: 1
+--- !u!114 &6881265337424321575
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b94fcd11afffcb142908bfcb1e261fba, type: 3}
+  m_Name: MotionBlur
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  shutterAngle:
+    overrideState: 1
+    value: 270
+  sampleCount:
+    overrideState: 1
+    value: 10
 --- !u!114 &9220099077650124084
 MonoBehaviour:
   m_ObjectHideFlags: 3

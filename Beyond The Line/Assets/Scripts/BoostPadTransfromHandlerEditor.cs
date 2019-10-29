@@ -24,6 +24,8 @@ public class BoostPadTransfromHandlerEditor : MonoBehaviour
         }
     }
 
+    
+
     void PositionToGround()
     {
         RaycastHit hit;
