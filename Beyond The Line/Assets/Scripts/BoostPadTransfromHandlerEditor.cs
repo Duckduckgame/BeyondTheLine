@@ -26,14 +26,14 @@ public class BoostPadTransfromHandlerEditor : MonoBehaviour
 
     void PositionToGround()
     {
-        RaycastHit hit;
+        /*RaycastHit hit;
         if(Physics.Raycast(transform.position, transform.up * -1, out hit, 500f)){
             transform.position = hit.point;
             Quaternion targetRot;
             targetRot = Quaternion.FromToRotation(transform.up, hit.normal);
             targetRot = Quaternion.Euler(targetRot.eulerAngles.x, transform.rotation.eulerAngles.y, targetRot.eulerAngles.z);
             //transform.rotation = targetRot;
-        }
+        }*/
     }
 
     private void OnTriggerEnter(Collider other)
