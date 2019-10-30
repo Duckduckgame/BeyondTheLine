@@ -60,3 +60,4 @@ MonoBehaviour:
   crntLapTime: 0
   raceOver: 0
   waitUntilLoad: 1.5
+  player: {fileID: 8839007615288818014, guid: 8370d39fe32b1304999f5cd65f39d670, type: 3}

@@ -11,6 +11,7 @@ public class HoverController : MonoBehaviour
     Rigidbody rb;
     float horiInput;
     float vertInput;
+    enum FlightType { Terrain, Track };
 
     [Header("Speed")]
     [SerializeField]
@@ -56,6 +57,9 @@ public class HoverController : MonoBehaviour
 
     [Header("Hover")]
     [SerializeField]
+    FlightType crntFlightType;
+    FlightType oldFlightType;
+    [SerializeField]
     float hoverHeight = 4;
     [SerializeField]
     float PositionToGroundInterpolation = 3;
@@ -71,14 +75,18 @@ public class HoverController : MonoBehaviour
     [SerializeField]
     float gravityInterpolation;
     [SerializeField]
-    float springForce = 150;
+    float springForce = 10;
     [SerializeField]
     float springClamp = 250;
     [SerializeField]
     float upSpringForceClamp = 0.5f;
     [SerializeField]
+    float damperForce = 50;
+    [SerializeField]
     float timeSinceGroundSensed;
     Vector3 hitPoint;
+    float springCompression;
+    float oldCompression;
 
     [Header("Strafing")]
     [SerializeField]
@@ -103,8 +111,6 @@ public class HoverController : MonoBehaviour
     [SerializeField]
     float CVCNoiseLerpMax = 250;
     Vector3 CVCOffset;
-    [SerializeField]
-    bool usingPS4Controller = false;
     RaceManager raceManager;
     PostProcessVolume PPV;
     [SerializeField]
@@ -116,11 +122,6 @@ public class HoverController : MonoBehaviour
     float forwardVelMag;
     [SerializeField]
     float rotDifferences;
-
-    [SerializeField]
-    Transform myTransform;
-    Transform tran;
-
 
     Vector3 lerpPoint;
 
@@ -134,8 +135,7 @@ public class HoverController : MonoBehaviour
         PPV = FindObjectOfType<PostProcessVolume>();
         raceManager = FindObjectOfType<RaceManager>();
 
-        tran = myTransform;
-
+        crntFlightType = FlightType.Track;
 
         
     }
@@ -143,31 +143,38 @@ public class HoverController : MonoBehaviour
     void Update()
     {
         horiInput = Input.GetAxis("Horizontal");
-        vertInput = Input.GetAxis("Vertical");
         float R2 = Input.GetAxis("PS4_R2");
         float L2 = Input.GetAxis("PS4_L2");
         R2 = (R2 + 1) * 0.5f;
         L2 = ((L2 + 1) * 0.5f) * -1;
-        if (usingPS4Controller)
-        {
-            vertInput = R2 + L2;
-        }
+
+        vertInput = Input.GetAxis("Vertical") + (R2 + L2);
+
         if (Input.GetKeyDown(KeyCode.T))
             raceManager.PlayerRespawn(this.gameObject);
 
+        if(oldFlightType != crntFlightType)
+        {
+            ChangeFlightType(crntFlightType);
+            oldFlightType = crntFlightType;
+        }
+
         timeSinceGroundSensed += Time.deltaTime;
         crntBoostTime += Time.deltaTime;
-        
-       
+
+        oldFlightType = crntFlightType;
     }
 
     private void FixedUpdate()
     {
         targetVelocityDirection = Vector3.zero;
 
+        oldCompression = springCompression;
         RaycastHit hit;
         if (Physics.Raycast(positionRay.position, transform.up * -1, out hit, maxSenseHeight))
         {
+            if (hit.collider.gameObject.GetComponent<TerrainCollider>() != null) crntFlightType = FlightType.Terrain;
+            if (hit.collider.gameObject.GetComponent<MeshCollider>() != null) crntFlightType = FlightType.Track;
             timeSinceGroundSensed = 0;
             groundSensed = true;
             CVCTargetPosition = CVCOffset;
@@ -179,9 +186,11 @@ public class HoverController : MonoBehaviour
             Vector3 targetPos = hit.point + (transform.rotation.normalized * new Vector3(0, hoverHeight, 0));
             hitPoint = hit.point;
 
-            float springCompression = ((Mathf.InverseLerp(0.2f, hoverHeight * 2, Vector3.Distance(transform.position, hit.point)) * 2) - 1) * -1;
+            springCompression = ((Mathf.InverseLerp(0.2f, hoverHeight * 2, Vector3.Distance(transform.position, hit.point)) * 2) - 1) * -1;
+            float damper = (((springCompression - oldCompression) / Time.deltaTime) * damperForce);
             float usedSpringforce = springForce;
-            Vector3 springVelocity = transform.up * springCompression * usedSpringforce;
+            
+            Vector3 springVelocity = transform.up * springCompression * (usedSpringforce - damper);
             
             targetVelocityDirection += Vector3.ClampMagnitude(springVelocity, springClamp);
             
@@ -320,6 +329,23 @@ public class HoverController : MonoBehaviour
         rb.velocity = crntBoost * transform.forward;
     }
 
+    void ChangeFlightType(FlightType newFlightType)
+    {
+        if(newFlightType == FlightType.Terrain)
+        {
+            springForce = 10;
+            springClamp = 2000;
+            upSpringForceClamp = 2000;
+            damperForce = 50;
+        }
+        if(newFlightType == FlightType.Track)
+        {
+            springForce = 250;
+            springClamp = 200;
+            upSpringForceClamp = 40;
+            damperForce = 0;
+        }
+    }
 
     private void OnDrawGizmos()
     {

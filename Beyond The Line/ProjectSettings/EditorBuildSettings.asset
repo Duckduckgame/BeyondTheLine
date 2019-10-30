@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Tracks/Track00.unity
     guid: f4a1752921a29d841b0cfe4083a65cdc
+  - enabled: 1
+    path: Assets/Scenes/Menus/Car Select.unity
+    guid: 7223d54e218bd2944a23ca338c843a18
   m_configObjects: {}

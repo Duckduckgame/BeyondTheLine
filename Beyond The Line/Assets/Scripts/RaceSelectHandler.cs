@@ -10,6 +10,7 @@ public class RaceSelectHandler : MonoBehaviour
 
     GameObject selectedTrackOBJ;
     int movementIndex = 0;
+    [SerializeField]
     int selectionIndex = 0;
     int nextIndex;
     int lastIndex;
@@ -19,6 +20,8 @@ public class RaceSelectHandler : MonoBehaviour
     float UIDelayTime = 0.5f;
     float UIShiftTime = Mathf.Infinity;
 
+    MasterSelectionHandler masterSelectionHandler;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +29,8 @@ public class RaceSelectHandler : MonoBehaviour
         positions = raceUIPosHandler.positions;
         selectedTrackOBJ = tracks[movementIndex];
         Debug.Log(selectedTrackOBJ.transform.name);
+
+        masterSelectionHandler = FindObjectOfType<MasterSelectionHandler>();
     }
 
     // Update is called once per frame
@@ -46,7 +51,16 @@ public class RaceSelectHandler : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            SceneManager.LoadScene(selectedTrackOBJ.GetComponent<UITrackObject>().sceneIndexToLoad);
+            if (selectedTrackOBJ.GetComponent<UISelectionObject>().selectionType == UISelectionObject.SelectionType.Track)
+            {
+                masterSelectionHandler.selectedScene = selectedTrackOBJ.GetComponent<UISelectionObject>().stringToLoad;
+                SceneManager.LoadScene("Car Select");
+            }
+            if (selectedTrackOBJ.GetComponent<UISelectionObject>().selectionType == UISelectionObject.SelectionType.Vehicle)
+            {
+                masterSelectionHandler.selectedVehicle = selectedTrackOBJ.GetComponent<UISelectionObject>().objectToLoad;
+                masterSelectionHandler.LoadSelections();
+            }
         }
     }
 
@@ -55,11 +69,13 @@ public class RaceSelectHandler : MonoBehaviour
         movementIndex--;
         if (movementIndex < 0) movementIndex += tracks.Length;
         if (movementIndex == tracks.Length) movementIndex -= tracks.Length;
-        selectedTrackOBJ = tracks[movementIndex];
+        selectionIndex++;
+        if (selectionIndex > tracks.Length -1) selectionIndex = 0;
+        selectedTrackOBJ = tracks[selectionIndex];
 
         for (int i = 0; i < tracks.Length; i++)
         {
-            tracks[i].GetComponent<UITrackObject>().targetPos = positions[(i + movementIndex) % tracks.Length];
+            tracks[i].GetComponent<UISelectionObject>().targetPos = positions[(i + movementIndex) % tracks.Length];
         }
     }
 
@@ -68,10 +84,12 @@ public class RaceSelectHandler : MonoBehaviour
         movementIndex++;
         if (movementIndex < 0) movementIndex += tracks.Length;
         if (movementIndex == tracks.Length) movementIndex -= tracks.Length;
-        selectedTrackOBJ = tracks[movementIndex];
+        selectionIndex--;
+        if (selectionIndex < 0) selectionIndex = tracks.Length-1;
+        selectedTrackOBJ = tracks[selectionIndex];
         for (int i = 0; i < tracks.Length; i++)
         {
-            tracks[i].GetComponent<UITrackObject>().targetPos = positions[(i + movementIndex) % tracks.Length];
+            tracks[i].GetComponent<UISelectionObject>().targetPos = positions[(i + movementIndex) % tracks.Length];
             
         }
     }

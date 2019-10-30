@@ -22,12 +22,16 @@ public class RaceManager : MonoBehaviour
 
     Vector3 startPos;
 
-    [SerializeField]
-    bool raceOver = false;
+
+    public bool raceOver = false;
     float timeSinceRaceOver;
     [SerializeField]
     float waitUntilLoad;
-
+    [SerializeField]
+    GameObject fogSphere;
+    [SerializeField]
+    bool manuallyFinishRace = false;
+    public GameObject player;
 
     // Start is called before the first frame update
     void Start()
@@ -44,6 +48,13 @@ public class RaceManager : MonoBehaviour
 
         checkpoints[0].GetComponent<CheckpointHandler>().firstCheckpoint = true;
         startPos = checkpoints[0].transform.position + new Vector3(0, 0, 10);
+        Quaternion startRot = checkpoints[0].transform.rotation;
+
+        player = Instantiate(player, startPos, startRot);
+        if(fogSphere != null)
+        {
+            Instantiate(fogSphere, startPos, Quaternion.identity, player.transform);
+        }
     }
 
     // Update is called once per frame
@@ -51,15 +62,18 @@ public class RaceManager : MonoBehaviour
     {
         crntLapTime += Time.deltaTime;
 
-        if (raceOver)
+        if (manuallyFinishRace)
         {
-            timeSinceRaceOver += Time.deltaTime;
+            EndRace();
         }
 
-        if(timeSinceRaceOver > waitUntilLoad)
+        if(raceOver)
         {
+            Time.timeScale = 1;
             SceneManager.LoadSceneAsync(0);
         }
+
+
     }
 
     public void PlayerRespawn(GameObject player)
@@ -114,12 +128,16 @@ public class RaceManager : MonoBehaviour
         }
     }
 
-    void EndRace() {
+    public void EndRace() {
+        Time.timeScale = 0.25f;
         Debug.Log("Race Over");
         string scene = SceneManager.GetActiveScene().name.ToString();
         Analytics.CustomEvent("raceEnd", new Dictionary<string, object> { { "Track", scene }, {"TotalTime", totalLapTimes }, {"BestLapTime", bestLap}, {"NumberOfLaps", numberOfLaps }, {"DeathCount", deathCount } });
         uIManager.totalLapTimes = totalLapTimes;
         uIManager.crntMode = UIManager.UIMode.EndRace;
-        raceOver = true;
+    }
+
+    public void QuitRace(bool toMenu)
+    {
     }
 }
