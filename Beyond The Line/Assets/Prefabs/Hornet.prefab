@@ -405,7 +405,7 @@ GameObject:
   - component: {fileID: 5562977915845666443}
   - component: {fileID: 1950826722910116383}
   m_Layer: 0
-  m_Name: FastShip
+  m_Name: Hornet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -460,7 +460,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   accellerationIncrease: 1
-  maxAcceleration: 200
+  maxAcceleration: 250
   speedDecrease: 1
   velocityInterpolation: 1
   jumpForce: 5
@@ -473,6 +473,7 @@ MonoBehaviour:
   rotationInterpolation: 1
   predictRotationLength: 10
   rotSenseHeight: 4
+  crntFlightType: 0
   hoverHeight: 4
   PositionToGroundInterpolation: 5
   maxSenseHeight: 10
@@ -494,7 +495,6 @@ MonoBehaviour:
   CVCSharpRotOffset: {x: 0, y: -2, z: -10}
   CVCPositionInterpolation: 0.1
   CVCNoiseLerpMax: 250
-  usingPS4Controller: 1
   distortVelocityMax: 1000
   velMag: 0
   forwardVelMag: 0

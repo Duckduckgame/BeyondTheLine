@@ -20,7 +20,7 @@ RenderSettings:
   m_FogDensity: 0.001
   m_LinearFogStart: 2500
   m_LinearFogEnd: 7000
-  m_AmbientSkyColor: {r: 0.31238878, g: 0.39531255, b: 0.5660378, a: 1}
+  m_AmbientSkyColor: {r: 0.3137255, g: 0.39607844, b: 0.5647059, a: 1}
   m_AmbientEquatorColor: {r: 0.754717, g: 0.754717, b: 0.754717, a: 1}
   m_AmbientGroundColor: {r: 0.6320754, g: 0.5853655, b: 0.4919455, a: 1}
   m_AmbientIntensity: 1
@@ -859,6 +859,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: canyonFog
+      objectReference: {fileID: 0}
+    - target: {fileID: 4790962340883251542, guid: 033ca6af40371f34d8a038a94a764715,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4790962340883251530, guid: 033ca6af40371f34d8a038a94a764715,
         type: 3}

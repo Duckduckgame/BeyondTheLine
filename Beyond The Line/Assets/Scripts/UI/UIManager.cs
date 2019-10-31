@@ -50,6 +50,8 @@ public class UIManager : MonoBehaviour
         modeToCanvas.Add(UIMode.EndRace, endRaceCanvas);
         modeToCanvas.Add(UIMode.Pause, pauseCanvas);
         oldMode = crntMode;
+
+        if (crntMode == UIMode.StartRace) RaceCountdown();
     }
 
 
@@ -64,7 +66,6 @@ public class UIManager : MonoBehaviour
         lapCount.text = raceManager.crntLap.ToString() + "/" + raceManager.numberOfLaps.ToString();
 
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("PS4 Start")) PauseUnpause();
-        if (crntMode == UIMode.StartRace) RaceCountdown();
 
         CheckModeChange();
         oldMode = crntMode;
@@ -109,9 +110,10 @@ public class UIManager : MonoBehaviour
         while (count > 0)
         {
             Time.timeScale = 0f;
-            countDownText.text = count.ToString("0");
             yield return new WaitForSecondsRealtime(1);
             count--;
+
+            countDownText.text = count.ToString("0");
         }
 
         // count down is finished...
@@ -141,6 +143,7 @@ public class UIManager : MonoBehaviour
 
     public void QuitToMainMenu()
     {
+        Time.timeScale = 1f;
         raceManager.QuitRace(true);
         SceneManager.LoadScene(0);
     }

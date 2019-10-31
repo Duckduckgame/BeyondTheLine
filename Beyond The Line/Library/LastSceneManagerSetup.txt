@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/Menus/RaceSelect.unity
+- path: E:/Work/robot-repo/Assets/Scenes/Terrain and Camera Test.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
