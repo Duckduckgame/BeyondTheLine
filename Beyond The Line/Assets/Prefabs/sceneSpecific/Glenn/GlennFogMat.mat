@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: FogTest
+  m_Name: GlennFogMat
   m_Shader: {fileID: 4800000, guid: 0406db5a14f94604a8c57ccfbc9f3b46, type: 3}
   m_ShaderKeywords: _COLOROVERLAY_ON _EMISSION _FADING_ON _RECEIVE_SHADOWS_OFF _SOFTPARTICLES_ON
   m_LightmapFlags: 2
@@ -102,10 +102,10 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 0
     m_Colors:
-    - _BaseColor: {r: 0.16862746, g: 0.26666668, b: 0.35686275, a: 1}
+    - _BaseColor: {r: 0.122641504, g: 0.49056602, b: 0.40880498, a: 1}
     - _BaseColorAddSubDiff: {r: -1, g: 1, b: 0, a: 0}
     - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
     - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-    - _EmissionColor: {r: 0.30682144, g: 0.382476, b: 0.8027793, a: 1}
+    - _EmissionColor: {r: 0.36414206, g: 0.46226418, b: 0.4374517, a: 1}
     - _SoftParticleFadeParams: {r: 0, g: 0.00066666666, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}

@@ -12,6 +12,12 @@ public class UIManager : MonoBehaviour
     public UIMode crntMode = UIMode.Race;
     UIMode oldMode;
     Dictionary<UIMode, CanvasGroup> modeToCanvas;
+    #region starRaceUI
+    [SerializeField]
+    CanvasGroup startCanvas;
+    [SerializeField]
+    TextMeshProUGUI countDownText;
+    #endregion
     #region RaceUI
     public CanvasGroup raceCanvas;
     [SerializeField]
@@ -39,6 +45,7 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         modeToCanvas = new Dictionary<UIMode, CanvasGroup>();
+        modeToCanvas.Add(UIMode.StartRace, startCanvas);
         modeToCanvas.Add(UIMode.Race, raceCanvas);
         modeToCanvas.Add(UIMode.EndRace, endRaceCanvas);
         modeToCanvas.Add(UIMode.Pause, pauseCanvas);
@@ -56,7 +63,8 @@ public class UIManager : MonoBehaviour
         crntLapTime.text = Mathf.Floor(crntLapTimeNum / 60).ToString("00") + ":" + (crntLapTimeNum % 60).ToString("00") + ":" + ((crntLapTimeNum*100) % 100).ToString("##");
         lapCount.text = raceManager.crntLap.ToString() + "/" + raceManager.numberOfLaps.ToString();
 
-        if (Input.GetKeyDown(KeyCode.Escape)) PauseUnpause();
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("PS4 Start")) PauseUnpause();
+        if (crntMode == UIMode.StartRace) RaceCountdown();
 
         CheckModeChange();
         oldMode = crntMode;
@@ -89,6 +97,29 @@ public class UIManager : MonoBehaviour
         endRaceBestTime.text = bestLapTime.text;
     }
 
+    public void RaceCountdown()
+    {
+        
+        StartCoroutine(CountDown(3));
+    }
+
+    IEnumerator CountDown(int seconds)
+    {
+        int count = seconds;
+        while (count > 0)
+        {
+            Time.timeScale = 0f;
+            countDownText.text = count.ToString("0");
+            yield return new WaitForSecondsRealtime(1);
+            count--;
+        }
+
+        // count down is finished...
+        Time.timeScale = 1f;
+        crntMode = UIMode.Race;
+    }
+
+
     public void PauseUnpause()
     {
 
@@ -97,7 +128,6 @@ public class UIManager : MonoBehaviour
         {
             Time.timeScale = 0;
             crntMode = UIMode.Pause;
-            Debug.Log("pause please?");
             return;
         }
 
@@ -105,7 +135,6 @@ public class UIManager : MonoBehaviour
         {
             Time.timeScale = 1;
             crntMode = UIMode.Race;
-            Debug.Log("unpause please?");
             return;
         }
     }

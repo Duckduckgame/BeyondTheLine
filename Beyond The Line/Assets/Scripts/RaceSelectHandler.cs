@@ -49,7 +49,7 @@ public class RaceSelectHandler : MonoBehaviour
             ShiftLeft();
         }
 
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("Jump"))
         {
             if (selectedTrackOBJ.GetComponent<UISelectionObject>().selectionType == UISelectionObject.SelectionType.Track)
             {
