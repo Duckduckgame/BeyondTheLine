@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.Audio;
+using System;
 
 [RequireComponent(typeof(Rigidbody))]
 public class HoverController : MonoBehaviour
@@ -123,6 +125,10 @@ public class HoverController : MonoBehaviour
     [SerializeField]
     float rotDifferences;
 
+    AudioSource audioSource;
+    float audioTargetVolume;
+    float audioTargetPitch;
+
     Vector3 lerpPoint;
 
     Vector3 spawnPos;
@@ -134,7 +140,7 @@ public class HoverController : MonoBehaviour
         spawnPos = transform.position;
         PPV = FindObjectOfType<PostProcessVolume>();
         raceManager = FindObjectOfType<RaceManager>();
-
+        audioSource = GetComponent<AudioSource>();
         crntFlightType = FlightType.Track;
 
         
@@ -159,6 +165,7 @@ public class HoverController : MonoBehaviour
             oldFlightType = crntFlightType;
         }
 
+
         timeSinceGroundSensed += Time.deltaTime;
         crntBoostTime += Time.deltaTime;
 
@@ -168,7 +175,8 @@ public class HoverController : MonoBehaviour
     private void FixedUpdate()
     {
         targetVelocityDirection = Vector3.zero;
-
+        audioTargetPitch = 1;
+        audioTargetVolume = 1;
         oldCompression = springCompression;
         RaycastHit hit;
         if (Physics.Raycast(positionRay.position, transform.up * -1, out hit, maxSenseHeight))
@@ -229,7 +237,15 @@ public class HoverController : MonoBehaviour
             Debug.Log("Press");
             targetVelocityDirection += transform.up * jumpForce;
         }
-        
+
+        if (!grounded && timeSinceGroundSensed > 0.2f)
+        {
+            raceManager.shipGrounded = false;
+            audioTargetVolume -= 0.2f;
+            audioTargetPitch += 0.5f;
+        }
+        else { raceManager.shipGrounded = true; }
+
         RotationRay();
 
         Strafe();
@@ -237,6 +253,8 @@ public class HoverController : MonoBehaviour
         YTurning();
 
         ForwardSpeed();
+
+        AudioLerp();
 
 
         //Final Rot 
@@ -279,6 +297,12 @@ public class HoverController : MonoBehaviour
 
     }
 
+    private void AudioLerp()
+    {
+        audioSource.volume = Mathf.Lerp(audioSource.volume, audioTargetVolume, Time.deltaTime * 1);
+        audioSource.pitch = Mathf.Lerp(audioSource.pitch, audioTargetPitch, Time.deltaTime * 1);
+    }
+
     private void ForwardSpeed()
     {
         if(vertInput != 0 && crntAcceleration < maxAcceleration)
@@ -317,6 +341,7 @@ public class HoverController : MonoBehaviour
         if (horiInput != 0)
         {
             transform.Rotate(transform.up, targetTurnSpeed, Space.World);
+            audioTargetPitch += 0.2f;
         }
         oldTurnSpeed = targetTurnSpeed;
     }

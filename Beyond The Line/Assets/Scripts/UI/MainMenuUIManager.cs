@@ -3,25 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class MainMenuUIManager : MonoBehaviour
 {
-    [SerializeField]
-    Button raceBut;
-    [SerializeField]
-    Button optionsBut;
-    [SerializeField]
-    Button exitBut;
 
-    // Start is called before the first frame update
-    void Start()
+    public void StartRace()
     {
-        
+        SceneManager.LoadScene("RaceSelect");
     }
 
-    // Update is called once per frame
-    void Update()
+    public void QuitGame()
     {
-        
+        Application.Quit();
     }
 }

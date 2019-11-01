@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class RaceSelectHandler : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class RaceSelectHandler : MonoBehaviour
     float UIShiftTime = Mathf.Infinity;
 
     MasterSelectionHandler masterSelectionHandler;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -94,4 +96,8 @@ public class RaceSelectHandler : MonoBehaviour
         }
     }
 
+    public void BackToMainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
 }

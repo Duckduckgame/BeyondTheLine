@@ -1410,6 +1410,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7352600262341658035, guid: c1419dd6d4a22bb4e892a1c0055273e4,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 40399870940034371, guid: c1419dd6d4a22bb4e892a1c0055273e4,
         type: 3}
       propertyPath: m_Name
@@ -1468,6 +1473,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8839007615288818014, guid: 8370d39fe32b1304999f5cd65f39d670,
         type: 3}
+    - target: {fileID: 1492413446, guid: c1419dd6d4a22bb4e892a1c0055273e4, type: 3}
+      propertyPath: audioVolumeLerp
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2791696320112486684, guid: c1419dd6d4a22bb4e892a1c0055273e4,
         type: 3}
       propertyPath: m_LocalPosition.x

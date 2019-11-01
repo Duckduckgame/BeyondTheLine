@@ -2122,13 +2122,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 658492258}
-  m_LocalRotation: {x: 0.007887538, y: -0.74299324, z: 0.008757369, w: 0.6691951}
-  m_LocalPosition: {x: 7.6137238, y: 544.47, z: 140.7444}
+  m_LocalRotation: {x: 0.3015269, y: -0.0020717825, z: 0.00065519405, w: 0.95345527}
+  m_LocalPosition: {x: 13, y: 2151, z: -2930}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 20.146, y: 195.09, z: 0.001}
+  m_LocalEulerAnglesHint: {x: 35.099003, y: 359.751, z: 0}
 --- !u!1 &687072514
 GameObject:
   m_ObjectHideFlags: 0
@@ -4900,17 +4900,17 @@ PrefabInstance:
     - target: {fileID: 7623140149913324234, guid: 10e519992322e56478ca1a61f24a9a8c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 446.60004
+      value: 451
       objectReference: {fileID: 0}
     - target: {fileID: 7623140149913324234, guid: 10e519992322e56478ca1a61f24a9a8c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 752.2
+      value: 805
       objectReference: {fileID: 0}
     - target: {fileID: 7623140149913324234, guid: 10e519992322e56478ca1a61f24a9a8c,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 141.80008
+      value: 151
       objectReference: {fileID: 0}
     - target: {fileID: 7623140149913324234, guid: 10e519992322e56478ca1a61f24a9a8c,
         type: 3}
@@ -5455,6 +5455,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 7015342148447955643, guid: 303329264a5c81149847a2964f87ea06,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7015342148447955647, guid: 303329264a5c81149847a2964f87ea06,
         type: 3}
@@ -6068,6 +6073,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7352600262341658035, guid: c1419dd6d4a22bb4e892a1c0055273e4,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: a9a518c9d42087f41a1629af76cf44ac, type: 3}
     - target: {fileID: 40399870940034371, guid: c1419dd6d4a22bb4e892a1c0055273e4,
         type: 3}
       propertyPath: m_Name
@@ -6128,6 +6138,18 @@ PrefabInstance:
     - target: {fileID: 1492413446, guid: c1419dd6d4a22bb4e892a1c0055273e4, type: 3}
       propertyPath: fogSphere
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1492413446, guid: c1419dd6d4a22bb4e892a1c0055273e4, type: 3}
+      propertyPath: audioVolumeLerp
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1492413446, guid: c1419dd6d4a22bb4e892a1c0055273e4, type: 3}
+      propertyPath: shipGrounded
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1492413446, guid: c1419dd6d4a22bb4e892a1c0055273e4, type: 3}
+      propertyPath: customVolume
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 2791696320112486684, guid: c1419dd6d4a22bb4e892a1c0055273e4,
         type: 3}

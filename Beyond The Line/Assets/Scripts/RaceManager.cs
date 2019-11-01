@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Analytics;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 public class RaceManager : MonoBehaviour
 {
@@ -32,6 +33,12 @@ public class RaceManager : MonoBehaviour
     [SerializeField]
     bool manuallyFinishRace = false;
     public GameObject player;
+    AudioSource audioSource;
+    [SerializeField]
+    float audioVolumeLerp;
+    [SerializeField]
+    float customVolume;
+    public bool shipGrounded;
 
     // Start is called before the first frame update
     void Start()
@@ -55,6 +62,9 @@ public class RaceManager : MonoBehaviour
         {
             Instantiate(fogSphere, startPos, Quaternion.identity, player.transform);
         }
+
+        audioSource = GetComponent<AudioSource>();
+        audioSource.volume = customVolume;
     }
 
     // Update is called once per frame
@@ -73,7 +83,15 @@ public class RaceManager : MonoBehaviour
             SceneManager.LoadSceneAsync(0);
         }
 
-
+        if (!shipGrounded)
+        {
+            audioSource.volume = Mathf.Lerp(audioSource.volume, 0.3f * customVolume, Time.deltaTime * audioVolumeLerp);
+            audioSource.pitch = Mathf.Lerp(audioSource.pitch, 0.8f, Time.deltaTime * audioVolumeLerp);
+        } else if (shipGrounded)
+        {
+            audioSource.volume = customVolume;
+            audioSource.pitch = 1;
+        }
     }
 
     public void PlayerRespawn(GameObject player)
@@ -132,12 +150,14 @@ public class RaceManager : MonoBehaviour
         Time.timeScale = 0.25f;
         Debug.Log("Race Over");
         string scene = SceneManager.GetActiveScene().name.ToString();
-        Analytics.CustomEvent("raceEnd", new Dictionary<string, object> { { "Track", scene }, {"TotalTime", totalLapTimes }, {"BestLapTime", bestLap}, {"NumberOfLaps", numberOfLaps }, {"DeathCount", deathCount } });
+        Analytics.CustomEvent("raceEnd", new Dictionary<string, object> { { "Track", scene }, {"Vehicle", player.transform.name }, {"TotalTime", totalLapTimes }, {"BestLapTime", bestLap}, {"NumberOfLaps", numberOfLaps }, {"DeathCount", deathCount } });
         uIManager.totalLapTimes = totalLapTimes;
         uIManager.crntMode = UIManager.UIMode.EndRace;
     }
 
     public void QuitRace(bool toMenu)
     {
+        string scene = SceneManager.GetActiveScene().name.ToString();
+        Analytics.CustomEvent("raceQuit", new Dictionary<string, object> { { "Track", scene }, { "Vehicle", player.transform.name }, { "TotalTime", totalLapTimes }, { "BestLapTime", bestLap }, { "NumberOfLaps", numberOfLaps }, { "DeathCount", deathCount } });
     }
 }
