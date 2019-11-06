@@ -181,8 +181,8 @@ public class HoverController : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(positionRay.position, transform.up * -1, out hit, maxSenseHeight))
         {
-            if (hit.collider.gameObject.GetComponent<TerrainCollider>() != null) crntFlightType = FlightType.Terrain;
-            if (hit.collider.gameObject.GetComponent<MeshCollider>() != null) crntFlightType = FlightType.Track;
+            /*if (hit.collider.gameObject.GetComponent<TerrainCollider>() != null) crntFlightType = FlightType.Terrain;
+            if (hit.collider.gameObject.GetComponent<MeshCollider>() != null) crntFlightType = FlightType.Track;*/
             timeSinceGroundSensed = 0;
             groundSensed = true;
             CVCTargetPosition = CVCOffset;
@@ -195,10 +195,10 @@ public class HoverController : MonoBehaviour
             hitPoint = hit.point;
 
             springCompression = ((Mathf.InverseLerp(0.2f, hoverHeight * 2, Vector3.Distance(transform.position, hit.point)) * 2) - 1) * -1;
-            float damper = (((springCompression - oldCompression) / Time.deltaTime) * damperForce);
+            float damper = (((springCompression + oldCompression) / Time.deltaTime) * damperForce);
             float usedSpringforce = springForce;
             
-            Vector3 springVelocity = transform.up * springCompression * (usedSpringforce - damper);
+            Vector3 springVelocity = transform.up * springCompression * (usedSpringforce + damper);
             
             targetVelocityDirection += Vector3.ClampMagnitude(springVelocity, springClamp);
             
@@ -237,14 +237,14 @@ public class HoverController : MonoBehaviour
             Debug.Log("Press");
             targetVelocityDirection += transform.up * jumpForce;
         }
-
+        /*
         if (!grounded && timeSinceGroundSensed > 0.2f)
         {
             raceManager.shipGrounded = false;
             audioTargetVolume -= 0.2f;
             audioTargetPitch += 0.5f;
         }
-        else { raceManager.shipGrounded = true; }
+        else { raceManager.shipGrounded = true; }*/
 
         RotationRay();
 
