@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Audio;
+using UnityEngine.Analytics;
 
 
 public class MasterSelectionHandler : MonoBehaviour
@@ -47,7 +47,9 @@ public class MasterSelectionHandler : MonoBehaviour
     {
         if(FindObjectOfType<RaceManager>() != null && selectedVehicle != null)
         {
+            Analytics.CustomEvent("Race Started", new Dictionary<string, object> { { "Track", SceneManager.GetActiveScene().name.ToString() }, {"Vehicle ", selectedVehicle.transform.name } });
             crntRaceManager = FindObjectOfType<RaceManager>();
+            crntRaceManager.crntType = RaceManager.RaceType.Track;
             crntRaceManager.player = selectedVehicle;
             if(audioSource.isPlaying) audioSource.Stop();
 

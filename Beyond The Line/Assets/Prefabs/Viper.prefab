@@ -82,6 +82,36 @@ PrefabInstance:
       propertyPath: strafeSpeed
       value: 300
       objectReference: {fileID: 0}
+    - target: {fileID: 5562977915845666443, guid: 8370d39fe32b1304999f5cd65f39d670,
+        type: 3}
+      propertyPath: rotationRayF
+      value: 
+      objectReference: {fileID: 1778536456865727100}
+    - target: {fileID: 5562977915845666443, guid: 8370d39fe32b1304999f5cd65f39d670,
+        type: 3}
+      propertyPath: rotationRayB
+      value: 
+      objectReference: {fileID: 4962242969567928649}
+    - target: {fileID: 5562977915845666443, guid: 8370d39fe32b1304999f5cd65f39d670,
+        type: 3}
+      propertyPath: rotationRayR
+      value: 
+      objectReference: {fileID: 4470939990272093844}
+    - target: {fileID: 5562977915845666443, guid: 8370d39fe32b1304999f5cd65f39d670,
+        type: 3}
+      propertyPath: rotationRayL
+      value: 
+      objectReference: {fileID: 6028565662425079856}
+    - target: {fileID: 5562977915845666443, guid: 8370d39fe32b1304999f5cd65f39d670,
+        type: 3}
+      propertyPath: accellerationIncrease
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5562977915845666443, guid: 8370d39fe32b1304999f5cd65f39d670,
+        type: 3}
+      propertyPath: minTurnSpeed
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5362614013130437386, guid: 8370d39fe32b1304999f5cd65f39d670,
         type: 3}
       propertyPath: m_Mesh
@@ -90,3 +120,27 @@ PrefabInstance:
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8370d39fe32b1304999f5cd65f39d670, type: 3}
+--- !u!4 &1778536456865727100 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7088407966676732142, guid: 8370d39fe32b1304999f5cd65f39d670,
+    type: 3}
+  m_PrefabInstance: {fileID: 8859059860000508562}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4962242969567928649 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4480195086998973403, guid: 8370d39fe32b1304999f5cd65f39d670,
+    type: 3}
+  m_PrefabInstance: {fileID: 8859059860000508562}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4470939990272093844 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4970368954825516038, guid: 8370d39fe32b1304999f5cd65f39d670,
+    type: 3}
+  m_PrefabInstance: {fileID: 8859059860000508562}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6028565662425079856 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2979254874915891874, guid: 8370d39fe32b1304999f5cd65f39d670,
+    type: 3}
+  m_PrefabInstance: {fileID: 8859059860000508562}
+  m_PrefabAsset: {fileID: 0}

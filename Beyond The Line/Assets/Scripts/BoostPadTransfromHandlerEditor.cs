@@ -27,7 +27,7 @@ public class BoostPadTransfromHandlerEditor : MonoBehaviour
     
 
     void PositionToGround()
-    {
+    {/*
         RaycastHit hit;
         if(Physics.Raycast(transform.position, transform.up * -1, out hit, 500f)){
             if (hit.collider.gameObject.GetComponent<trackManager>() != null)
@@ -35,6 +35,13 @@ public class BoostPadTransfromHandlerEditor : MonoBehaviour
                 transform.position = hit.point;
             }
         }
+        if (Physics.Raycast(transform.position, transform.up, out hit, 80f))
+        {
+            if (hit.collider.gameObject.GetComponent<trackManager>() != null)
+            {
+                transform.position = hit.point;
+            }
+        }*/
     }
 
     private void OnTriggerEnter(Collider other)

@@ -1,5 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-296386479831147286
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
 --- !u!21 &2100000
 Material:
   serializedVersion: 6
@@ -8,14 +21,14 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Car
-  m_Shader: {fileID: -6465566751694194690, guid: ed787ae66ad89e949b27b9f1fb33037b,
-    type: 3}
-  m_ShaderKeywords: 
+  m_Shader: {fileID: 4800000, guid: 8d2bb70cbf9db8d4da26e15b26e74248, type: 3}
+  m_ShaderKeywords: _GLOSSINESS_FROM_BASE_ALPHA _SPECULAR_COLOR
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
+  m_CustomRenderQueue: 2050
+  stringTagMap:
+    RenderType: Opaque
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -28,12 +41,56 @@ Material:
         m_Texture: {fileID: 2800000, guid: 08be6c6f7de245242afec2b2f48a804f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - Texture2D_69EA017:
+        m_Texture: {fileID: 2800000, guid: b9d479250e7ac0547a32dc79c6ced1de, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - Texture2D_8C63F4FA:
         m_Texture: {fileID: 2800000, guid: a1d87982197e81247b67eff01325081f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - Texture2D_9C11B145:
+        m_Texture: {fileID: 2800000, guid: 31767aa5993c0354f8fb9dae64e53d41, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_A1049113:
+        m_Texture: {fileID: 2800000, guid: b9d479250e7ac0547a32dc79c6ced1de, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_D9F95072:
+        m_Texture: {fileID: 2800000, guid: d04af4af9f1a75e4aaf2d6f10c33e46a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BaseMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_E502551F_Texture_1:
         m_Texture: {fileID: 2800000, guid: cbacf009fcd0e484fbd57889972642c5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SpecGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_1B7785DA_Out_0:
+        m_Texture: {fileID: 2800000, guid: c623a22b0da775a4bb91c9cb765c9aa6, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_538E2352_Out_0:
+        m_Texture: {fileID: 2800000, guid: 2de47a90b6d1f924bac42783e15b950b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Texture2DAsset_AECA3C56_Out_0:
@@ -42,13 +99,38 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - Boolean_D720E0B1: 0
+    - Vector1_42EEDEDF: 0
+    - Vector1_59A62DF7: 0
     - Vector1_5B6DA623: 0.3
     - Vector1_71424CB1: 9.16
+    - Vector1_A14744D5: 2247
     - Vector1_B018FD82: -35.9
     - Vector1_B31751FB: 100
     - Vector1_C54535C6: 1
+    - _AlphaClip: 0
+    - _Blend: 0
+    - _BumpScale: 1
+    - _Cull: 2
+    - _Cutoff: 0.5
+    - _DstBlend: 0
+    - _GlossinessSource: 0
+    - _QueueOffset: 0
+    - _ReceiveShadows: 1
+    - _Shininess: 0
+    - _Smoothness: 0
+    - _SmoothnessSource: 1
+    - _SpecSource: 0
+    - _SpecularHighlights: 0
+    - _SrcBlend: 1
+    - _Surface: 0
+    - _ZWrite: 1
     m_Colors:
     - Color_E546805D: {r: 1, g: 1, b: 1, a: 1}
     - Vector2_48D9FCBD: {r: 1, g: 1, b: 0, a: 0}
     - Vector2_6DDCBC7A: {r: 0.01, g: 1, b: 0, a: 0}
     - Vector3_A8C3779F: {r: 1, g: 1, b: 1, a: 0}
+    - Vector3_F8E0DAA0: {r: 0, g: 1, b: 0, a: 0}
+    - _BaseColor: {r: 0.5, g: 0.5, b: 0.5, a: 0}
+    - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _SpecColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}

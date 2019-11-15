@@ -41,6 +41,8 @@ public class UIManager : MonoBehaviour
     #endregion
     public RaceManager raceManager;
 
+    [SerializeField]
+    TextMeshProUGUI speedText;
     // Start is called before the first frame update
     void Start()
     {
@@ -58,7 +60,8 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
+        speedText.text = Mathf.FloorToInt(FindObjectOfType<HoverController>().crntAcceleration).ToString();
         raceManager = FindObjectOfType<RaceManager>();
         if (crntMode == UIMode.EndRace) { UpdateEndRaceUI(); }
         float crntLapTimeNum = raceManager.crntLapTime;
