@@ -348,7 +348,7 @@ InputManager:
     negativeButton: 
     positiveButton: joystick button 8
     altNegativeButton: 
-    altPositiveButton: 
+    altPositiveButton: t
     gravity: 3
     dead: 1.001
     sensitivity: 3
@@ -369,7 +369,55 @@ InputManager:
     dead: 1.001
     sensitivity: 3
     snap: 0
-    invert: 1
+    invert: 0
     type: 0
-    axis: 3
+    axis: 2
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: R_Horizontal
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.19
+    sensitivity: 1
+    snap: 0
+    invert: 1
+    type: 2
+    axis: 2
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: R_Vertical
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.19
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 2
+    axis: 5
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: PS4_circle
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: joystick button 2
+    altNegativeButton: p
+    altPositiveButton: 
+    gravity: 3
+    dead: 1.001
+    sensitivity: 3
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 2
     joyNum: 0

@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class TutorialcolTrigger : MonoBehaviour
 {
-    enum phaseTrigger {R2, L3, Strafe, Stick }
+    /*enum phaseTrigger {R2, L3, Strafe, Stick, Boos }
 
     [SerializeField]
-    phaseTrigger crntTrigger;
+    phaseTrigger crntTrigger;*/
+
+    [SerializeField]
+    CanvasGroup CanvasGroup;
 
     tutorialController tutorialController;
 
@@ -20,22 +23,8 @@ public class TutorialcolTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (crntTrigger == phaseTrigger.R2)
-        {
-            tutorialController.setR2Canvas();
-        }
-        if (crntTrigger == phaseTrigger.L3)
-        {
-            tutorialController.setL3Canvas();
-        }
-        if (crntTrigger == phaseTrigger.Strafe)
-        {
-            tutorialController.setStrafeCanvas();
-        }
-        if (crntTrigger == phaseTrigger.Stick)
-        {
-            tutorialController.setStickCanvas();
-        }
+        tutorialController.SetCanvas(CanvasGroup);
+
         Destroy(this);
     }
 }

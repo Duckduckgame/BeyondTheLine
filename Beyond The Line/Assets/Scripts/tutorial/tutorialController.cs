@@ -12,6 +12,8 @@ public class tutorialController : MonoBehaviour
     public bool showSticking;
     [HideInInspector]
     public bool showStrafe;
+    [HideInInspector]
+    public bool showBoost;
 
     [SerializeField]
     CanvasGroup R2Canvas;
@@ -21,9 +23,15 @@ public class tutorialController : MonoBehaviour
     CanvasGroup stickCanvas;
     [SerializeField]
     CanvasGroup strafeCanvas;
+    [SerializeField]
+    CanvasGroup boostCanvas;
 
     CanvasGroup crntCanvas;
 
+    private void Start()
+    {
+        Time.timeScale = 0f;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -34,28 +42,10 @@ public class tutorialController : MonoBehaviour
         }
     }
 
-    public void setR2Canvas()
+    public void SetCanvas(CanvasGroup canvas)
     {
-        R2Canvas.alpha = 1;
-        crntCanvas = R2Canvas;
-        Time.timeScale = 0.0001f;
-    }
-    public void setL3Canvas()
-    {
-        L3Canvas.alpha = 1;
-        crntCanvas = L3Canvas;
-        Time.timeScale = 0.0001f;
-    }
-    public void setStickCanvas()
-    {
-        stickCanvas.alpha = 1;
-        crntCanvas = stickCanvas;
-        Time.timeScale = 0.0001f;
-    }
-    public void setStrafeCanvas()
-    {
-        strafeCanvas.alpha = 1;
-        crntCanvas = strafeCanvas;
-        Time.timeScale = 0.0001f;
+        canvas.alpha = 1;
+        crntCanvas = canvas;
+        Time.timeScale = 0;
     }
 }

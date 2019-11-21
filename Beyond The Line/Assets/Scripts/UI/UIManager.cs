@@ -40,9 +40,12 @@ public class UIManager : MonoBehaviour
     public float totalLapTimes;
     #endregion
     public RaceManager raceManager;
-
+    HoverController player;
     [SerializeField]
     TextMeshProUGUI speedText;
+    [SerializeField]
+    Image boostImage;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -52,7 +55,7 @@ public class UIManager : MonoBehaviour
         modeToCanvas.Add(UIMode.EndRace, endRaceCanvas);
         modeToCanvas.Add(UIMode.Pause, pauseCanvas);
         oldMode = crntMode;
-
+        player = FindObjectOfType<HoverController>();
         if (crntMode == UIMode.StartRace) RaceCountdown();
     }
 
@@ -60,8 +63,8 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        speedText.text = Mathf.FloorToInt(FindObjectOfType<HoverController>().crntAcceleration).ToString();
+        if (player == null) player = FindObjectOfType<HoverController>();
+        speedText.text = Mathf.FloorToInt(FindObjectOfType<HoverController>().usedAcceleration).ToString();
         raceManager = FindObjectOfType<RaceManager>();
         if (crntMode == UIMode.EndRace) { UpdateEndRaceUI(); }
         float crntLapTimeNum = raceManager.crntLapTime;
@@ -69,7 +72,7 @@ public class UIManager : MonoBehaviour
         lapCount.text = raceManager.crntLap.ToString() + "/" + raceManager.numberOfLaps.ToString();
 
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("PS4 Start")) PauseUnpause();
-
+        boostImage.transform.localScale = new Vector3(1, Mathf.InverseLerp(0, player.maxBoostAmount, player.crntBoostAmount),1);
         CheckModeChange();
         oldMode = crntMode;
     }

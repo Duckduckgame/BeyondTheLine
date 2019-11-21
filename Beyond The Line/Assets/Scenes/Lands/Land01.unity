@@ -3426,7 +3426,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 2
+  near clip plane: 0.05
   far clip plane: 200000
   field of view: 60
   orthographic: 0
@@ -5968,11 +5968,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7015342148447955644, guid: 303329264a5c81149847a2964f87ea06,
-        type: 3}
-      propertyPath: speedText
-      value: 
-      objectReference: {fileID: 1800181725}
     - target: {fileID: 7015342147768542308, guid: 303329264a5c81149847a2964f87ea06,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -6278,6 +6273,11 @@ PrefabInstance:
       propertyPath: m_textInfo.pageCount
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7015342148447955644, guid: 303329264a5c81149847a2964f87ea06,
+        type: 3}
+      propertyPath: speedText
+      value: 
+      objectReference: {fileID: 1800181725}
     - target: {fileID: 2267556231649624251, guid: 303329264a5c81149847a2964f87ea06,
         type: 3}
       propertyPath: m_textInfo.characterCount

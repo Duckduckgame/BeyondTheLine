@@ -8,6 +8,14 @@ using UnityEngine.SceneManagement;
 public class MainMenuUIManager : MonoBehaviour
 {
 
+    private void Update()
+    {
+        if (Input.GetButton("Jump"))
+        {
+            StartRace();
+        }
+    }
+
     public void StartRace()
     {
         SceneManager.LoadScene("RaceSelect");
