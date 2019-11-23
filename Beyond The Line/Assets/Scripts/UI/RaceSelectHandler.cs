@@ -68,8 +68,7 @@ public class RaceSelectHandler : MonoBehaviour
         if (selectedTrackOBJ.GetComponent<UISelectionObject>().selectionType == UISelectionObject.SelectionType.Track)
         {
             masterSelectionHandler.selectedScene = selectedTrackOBJ.GetComponent<UISelectionObject>().stringToLoad;
-            StartCoroutine(FindObjectOfType<transitionPlane>().TransitionOut("Car Select"));
-            //SceneManager.LoadScene("Car Select");
+            SceneManager.LoadSceneAsync("Car Select");
         }
         if (selectedTrackOBJ.GetComponent<UISelectionObject>().selectionType == UISelectionObject.SelectionType.Vehicle)
         {

@@ -281,11 +281,10 @@ public class RaceManager : MonoBehaviour
 
     public void QuitRace(bool toMenu)
     {
-        if (FindObjectOfType<MasterSelectionHandler>() != null) {
             string scene = SceneManager.GetActiveScene().name.ToString();
             Analytics.CustomEvent("quit: " + scene, new Dictionary<string, object> { { "Track", scene }, { "Vehicle", player.transform.name }, { "TotalTime", totalLapTimes }, { "BestLapTime", bestLap }, { "NumberOfLaps", numberOfLaps }, { "DeathCount", deathCount } });
             SendDeaths();
-        }
+        
     }
 
     private void OnDrawGizmos()

@@ -466,7 +466,7 @@ public class HoverController : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(rotationRayF.position, rotationRayF.transform.up * -1, out hit, maxSenseHeight))
         {
-            if (hit.collider.GetComponent<trackManager>() != null || raceManager.crntType == RaceManager.RaceType.Land)
+            if (hit.collider.GetComponent<trackManager>() != null || raceManager.crntType == RaceManager.RaceType.Land || hit.collider.GetComponent<TerrainCollider>() != null)
             {
                 Quaternion tempTargetRot = targetRot;
                 targetRot = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
@@ -475,7 +475,7 @@ public class HoverController : MonoBehaviour
         }
         else if (Physics.Raycast(rotationRayB.position, rotationRayB.transform.up * -1, out hit, maxSenseHeight))
         {
-            if (hit.collider.GetComponent<trackManager>() != null || raceManager.crntType == RaceManager.RaceType.Land)
+            if (hit.collider.GetComponent<trackManager>() != null || raceManager.crntType == RaceManager.RaceType.Land || hit.collider.GetComponent<TerrainCollider>() != null)
             {
                 Quaternion tempTargetRot = targetRot;
                 targetRot = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
@@ -484,7 +484,7 @@ public class HoverController : MonoBehaviour
         }
         else if (Physics.Raycast(rotationRayR.position, rotationRayR.transform.up * -1, out hit, maxSenseHeight))
         {
-            if (hit.collider.GetComponent<trackManager>() != null || raceManager.crntType == RaceManager.RaceType.Land)
+            if (hit.collider.GetComponent<trackManager>() != null || raceManager.crntType == RaceManager.RaceType.Land || hit.collider.GetComponent<TerrainCollider>() != null)
             {
                 Quaternion tempTargetRot = targetRot;
                 targetRot = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
@@ -493,7 +493,7 @@ public class HoverController : MonoBehaviour
         }
         else if (Physics.Raycast(rotationRayL.position, rotationRayL.transform.up * -1, out hit, maxSenseHeight))
         {
-            if (hit.collider.GetComponent<trackManager>() != null || raceManager.crntType == RaceManager.RaceType.Land)
+            if (hit.collider.GetComponent<trackManager>() != null || raceManager.crntType == RaceManager.RaceType.Land || hit.collider.GetComponent<TerrainCollider>() != null)
             {
                 Quaternion tempTargetRot = targetRot;
                 targetRot = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;

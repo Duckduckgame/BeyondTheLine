@@ -75,6 +75,11 @@ public class UIManager : MonoBehaviour
         boostImage.transform.localScale = new Vector3(1, Mathf.InverseLerp(0, player.maxBoostAmount, player.crntBoostAmount),1);
         CheckModeChange();
         oldMode = crntMode;
+
+        if(crntMode == UIMode.EndRace && Input.GetButton("Jump"))
+        {
+            raceManager.raceOver = true;
+        }
     }
 
     void CheckModeChange()
@@ -120,6 +125,8 @@ public class UIManager : MonoBehaviour
             count--;
 
             countDownText.text = count.ToString("0");
+            Debug.Log(countDownText.text);
+            Debug.Log(countDownText.gameObject.transform.name);
         }
 
         // count down is finished...
