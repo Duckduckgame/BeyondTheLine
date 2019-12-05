@@ -55,6 +55,10 @@ public class UIManager : MonoBehaviour
     AudioSource countdownAudioSource;
     [SerializeField]
     AudioSource bombAudioSource;
+    [SerializeField]
+    Image restartBar;
+    [SerializeField]
+    Image startBar;
 
     // Start is called before the first frame update
     void Start()
@@ -67,6 +71,7 @@ public class UIManager : MonoBehaviour
         oldMode = crntMode;
         player = FindObjectOfType<HoverController>();
         if (crntMode == UIMode.StartRace) RaceCountdown();
+        
     }
 
 
@@ -120,7 +125,7 @@ public class UIManager : MonoBehaviour
     }
 
     public void RaceCountdown() {
-
+        Time.timeScale = 0f;
         StartCoroutine(CountDown(3));
     }
 
@@ -128,22 +133,34 @@ public class UIManager : MonoBehaviour
     {
         int count = seconds;
 
-        
+        yield return new WaitForSecondsRealtime(0.3f);
+        for (float i = 0; i < 1.1f; i += 0.1f)
+        {
+            startBar.fillAmount = 1 - i;
+            yield return new WaitForSecondsRealtime(0.05f);
+        }
+        countDownText.alpha = 0;
         while (count > 0)
         {
+            countDownText.transform.localScale = Vector3.one * 15;
             countdownAudioSource.clip = ready; countdownAudioSource.Play();
             bombAudioSource.Play();
+
             if (count == 2) countdownAudioSource.clip = set; countdownAudioSource.Play();
             if (count == 1) countdownAudioSource.clip = go; countdownAudioSource.Play();
-            yield return new WaitForSecondsRealtime(1);
 
-            Time.timeScale = 0f;
-
+            
             count--;
-
+            
+            for (float i = 0; i < 1f; i+= 0.1f)
+            {
+                countDownText.transform.localScale = Vector3.one * 15 * i;
+                countDownText.alpha = i + 0.2f;
+                countDownText.color = Color.Lerp(Color.red, Color.green, i);
+                yield return new WaitForSecondsRealtime(0.1f);
+            }
+            if (count == 0) break;
             countDownText.text = count.ToString("0");
-            Debug.Log(countDownText.text);
-            Debug.Log(countDownText.gameObject.transform.name);
         }
 
         // count down is finished...
@@ -187,6 +204,28 @@ public class UIManager : MonoBehaviour
     public void EndRace()
     {
         raceManager.raceOver = true;
+    }
+
+    public IEnumerator ReSpawn(GameObject go)
+    {
+
+        for (float i = 0; i < 1.1f; i += 0.2f)
+        {
+            restartBar.fillAmount = i;
+            yield return  new WaitForSecondsRealtime(0.01f);
+        }
+
+        raceManager.PlayerRespawn(go);
+        yield return new WaitForSecondsRealtime(0.2f);
+
+        for (float i = 0; i < 1.1f; i += 0.2f)
+        {
+            restartBar.fillAmount = 1 - i;
+            yield return new WaitForSecondsRealtime(0.01f);
+        }
+
+        Time.timeScale = 1f;
+        yield return null;
     }
     
 }

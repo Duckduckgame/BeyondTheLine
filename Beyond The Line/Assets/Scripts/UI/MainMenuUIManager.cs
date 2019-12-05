@@ -33,6 +33,7 @@ public class MainMenuUIManager : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
         audioSource.Play();
+
         yield return new WaitForSecondsRealtime(audioSource.clip.length);
         SceneManager.LoadScene("RaceSelect");
         yield return null;

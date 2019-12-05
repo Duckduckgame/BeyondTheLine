@@ -153,8 +153,6 @@ MonoBehaviour:
   selectedVehicle: {fileID: 0}
   selectedScene: 
   MusicSource: {fileID: 49300982}
-  secondarySource: {fileID: 0}
-  MMstart: {fileID: 0}
 --- !u!4 &49300981
 Transform:
   m_ObjectHideFlags: 0

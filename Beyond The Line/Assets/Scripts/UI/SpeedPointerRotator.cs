@@ -22,8 +22,13 @@ public class SpeedPointerRotator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Vector3 usedEndRot = endRot;
         if (hoverController == null) hoverController = FindObjectOfType<HoverController>();
         float lerpAmount = Mathf.InverseLerp(0, hoverController.maxAcceleration, hoverController.crntAcceleration);
-        transform.eulerAngles = Vector3.Lerp(startRot, endRot, lerpAmount);
+        if(hoverController.maxAcceleration - hoverController.usedAcceleration < 5 || hoverController.usedAcceleration > hoverController.maxAcceleration)
+        {
+            usedEndRot -= new Vector3(0,0, Random.Range(0, 15));
+        }
+        transform.eulerAngles = Vector3.Lerp(startRot, usedEndRot, lerpAmount);
     }
 }

@@ -159,6 +159,7 @@ public class HoverController : MonoBehaviour
     public bool IsBoosting;
     Vector3 spawnPos;
     HoverAudioManager hoverAudioManager;
+    UIManager uiManager;
 
     float noiseBooster = 0;
     #region analytics
@@ -181,6 +182,7 @@ public class HoverController : MonoBehaviour
         crntBoostAmount = maxBoostAmount;
         hoverAudioManager = GetComponent<HoverAudioManager>();
         if (raceManager.crntType == RaceManager.RaceType.Land) noiseBooster = 0.2f;
+        uiManager = FindObjectOfType<UIManager>();
     }
 
     void Update()
@@ -194,7 +196,8 @@ public class HoverController : MonoBehaviour
         vertInput = Mathf.Clamp(Input.GetAxis("Vertical") + (R2 + L2),-1,1);
 
         if (Input.GetButtonDown("PS4 Select"))
-            raceManager.PlayerRespawn(this.gameObject);
+            StartCoroutine(uiManager.ReSpawn(gameObject));
+            
 
         if (oldFlightType != crntFlightType)
         {
@@ -516,6 +519,7 @@ public class HoverController : MonoBehaviour
 
     public void BoostPad(float speed, float time)
     {
+        hoverAudioManager.BoostPadPlay();
         StartCoroutine(BoostPower(speed, time));
         
     }

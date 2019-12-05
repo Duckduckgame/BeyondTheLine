@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Analytics;
+using UnityEngine.UI;
 
 
 public class MasterSelectionHandler : MonoBehaviour
@@ -40,9 +41,9 @@ public class MasterSelectionHandler : MonoBehaviour
 
     public void LoadSelections()
     {
-        if (FindObjectOfType<transitionPlane>())
+        if (GameObject.FindGameObjectWithTag("Rock") != null)
         {
-            StartCoroutine(FindObjectOfType<transitionPlane>().TransitionOut(selectedScene));
+            StartCoroutine(transitionBar(GameObject.FindGameObjectWithTag("Rock").GetComponent<Image>()));
         }
         else
         {
@@ -67,7 +68,21 @@ public class MasterSelectionHandler : MonoBehaviour
         }
         else
         {
-            if (!MusicSource.isPlaying) MusicSource.Play();
+            if (MusicSource != null)
+            {
+                if (!MusicSource.isPlaying) MusicSource.Play();
+            }
         }
+    }
+
+    IEnumerator transitionBar(Image image)
+    {
+        for (float i = 0; i < 1.1; i+= 0.1f)
+        {
+            image.fillAmount = i;
+            yield return new WaitForSecondsRealtime(0.02f);
+        }
+        SceneManager.LoadScene(selectedScene);
+        yield return null;
     }
 }
