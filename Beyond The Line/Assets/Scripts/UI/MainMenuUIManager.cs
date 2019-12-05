@@ -8,6 +8,9 @@ using UnityEngine.SceneManagement;
 public class MainMenuUIManager : MonoBehaviour
 {
 
+    AudioSource audioSource;
+
+
     private void Update()
     {
         if (Input.GetButton("Jump"))
@@ -18,11 +21,20 @@ public class MainMenuUIManager : MonoBehaviour
 
     public void StartRace()
     {
-        SceneManager.LoadScene("RaceSelect");
+        StartCoroutine(StartGame());
     }
 
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    IEnumerator StartGame()
+    {
+        audioSource = GetComponent<AudioSource>();
+        audioSource.Play();
+        yield return new WaitForSecondsRealtime(audioSource.clip.length);
+        SceneManager.LoadScene("RaceSelect");
+        yield return null;
     }
 }

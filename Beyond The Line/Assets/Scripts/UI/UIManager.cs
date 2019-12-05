@@ -45,6 +45,16 @@ public class UIManager : MonoBehaviour
     TextMeshProUGUI speedText;
     [SerializeField]
     Image boostImage;
+    [SerializeField]
+    AudioClip ready;
+    [SerializeField]
+    AudioClip set;
+    [SerializeField]
+    AudioClip go;
+    [SerializeField]
+    AudioSource countdownAudioSource;
+    [SerializeField]
+    AudioSource bombAudioSource;
 
     // Start is called before the first frame update
     void Start()
@@ -109,19 +119,26 @@ public class UIManager : MonoBehaviour
         endRaceBestTime.text = bestLapTime.text;
     }
 
-    public void RaceCountdown()
-    {
-        
+    public void RaceCountdown() {
+
         StartCoroutine(CountDown(3));
     }
 
     IEnumerator CountDown(int seconds)
     {
         int count = seconds;
+
+        
         while (count > 0)
         {
-            Time.timeScale = 0f;
+            countdownAudioSource.clip = ready; countdownAudioSource.Play();
+            bombAudioSource.Play();
+            if (count == 2) countdownAudioSource.clip = set; countdownAudioSource.Play();
+            if (count == 1) countdownAudioSource.clip = go; countdownAudioSource.Play();
             yield return new WaitForSecondsRealtime(1);
+
+            Time.timeScale = 0f;
+
             count--;
 
             countDownText.text = count.ToString("0");

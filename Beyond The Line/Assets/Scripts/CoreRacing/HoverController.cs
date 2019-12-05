@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using UnityEngine.Rendering.PostProcessing;
-using UnityEngine.Audio;
 using System;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -127,10 +126,9 @@ public class HoverController : MonoBehaviour
     float CVCPositionInterpolation = 1;
     [SerializeField]
     float CVCNoiseMaxAmplitude = 250;
-    [SerializeField]
-    float minNoiseSpeed;
-    [SerializeField]
-    float maxNoiseSpeed;
+    
+    public float minNoiseSpeed;
+    public float maxNoiseSpeed;
     Vector3 CVCOffset;
     RaceManager raceManager;
     PostProcessVolume PPV;
@@ -144,12 +142,7 @@ public class HoverController : MonoBehaviour
     [SerializeField]
     float rotDifferences;
 
-    [SerializeField]
-    AudioSource hoverAudioSource;
-    [SerializeField]
-    AudioSource crashAudioSource;
-    float audioTargetVolume;
-    float audioTargetPitch;
+
     [SerializeField]
     ParticleSystem speedPS;
     [SerializeField]
@@ -161,11 +154,13 @@ public class HoverController : MonoBehaviour
     Material emmissMat;
     float emissStrength;
     float emissLerp;
-    float boostEmissLerp;
+    public float boostEmissLerp;
     Vector3 lerpPoint;
-
+    public bool IsBoosting;
     Vector3 spawnPos;
+    HoverAudioManager hoverAudioManager;
 
+    float noiseBooster = 0;
     #region analytics
     public float strafeTime_anal = 0;
     public float boostTime_anal = 0;
@@ -182,10 +177,10 @@ public class HoverController : MonoBehaviour
         spawnPos = transform.position;
         PPV = FindObjectOfType<PostProcessVolume>();
         raceManager = FindObjectOfType<RaceManager>();
-        hoverAudioSource = GetComponent<AudioSource>();
         crntFlightType = FlightType.Terrain;
         crntBoostAmount = maxBoostAmount;
-
+        hoverAudioManager = GetComponent<HoverAudioManager>();
+        if (raceManager.crntType == RaceManager.RaceType.Land) noiseBooster = 0.2f;
     }
 
     void Update()
@@ -227,34 +222,35 @@ public class HoverController : MonoBehaviour
             crntBoost += boostForce * Time.deltaTime;
             emissLerp += 500f;
             boostEmissLerp = Mathf.Lerp(boostEmissLerp, 1, Time.deltaTime * 20f);
-            CVC.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0.4f;
+            CVC.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0.4f + noiseBooster;
             crntBoostAmount -= Time.deltaTime;
             timeSinceBoost = 0;
             turnMultiplier = 0.5f;
             boostTime_anal += Time.deltaTime;
+            IsBoosting = true;
         }
         if (Input.GetButtonUp("Jump") || crntBoostAmount < 0.1f)
         {
             crntBoost = 0;
             emissLerp -= 0.5f;
-            boostEmissLerp = Mathf.Lerp(boostEmissLerp, 0, Time.deltaTime * 20f);
-            CVC.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0.2f;
+            boostEmissLerp = 0;
+            CVC.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0.2f + noiseBooster;
             turnMultiplier = 1;
+            IsBoosting = false;
         }
         if (!Input.GetButton("Jump") && crntBoostAmount < maxBoostAmount && untilFillBoost < timeSinceBoost)
         {
             crntBoostAmount += Time.deltaTime;
-            boostEmissLerp = Mathf.Lerp(boostEmissLerp, 0, Time.deltaTime * 20f);
-            CVC.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0.2f;
+            boostEmissLerp = 0;
+            CVC.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0.2f + noiseBooster;
             turnMultiplier = 1;
+            IsBoosting = false;
         }
     }
 
     private void FixedUpdate()
     {
         targetVelocityDirection = Vector3.zero;
-        audioTargetPitch = 1;
-        audioTargetVolume = 1;
         oldCompression = springCompression;
         RaycastHit hit;
         if (Physics.Raycast(positionRay.position, transform.up * -1, out hit, maxSenseHeight))
@@ -292,8 +288,7 @@ public class HoverController : MonoBehaviour
                 targetRot = Quaternion.Lerp(targetRot, Quaternion.FromToRotation(transform.up, Vector3.up) * transform.rotation, Time.deltaTime * rotationInterpolation);
             if (timeSinceGroundSensed > hangTime)
                 targetRot = Quaternion.Euler(targetRot.eulerAngles.x, transform.rotation.eulerAngles.y, targetRot.eulerAngles.z);
-            if (timeSinceGroundSensed > hangTime && raceManager.crntType == RaceManager.RaceType.Land)
-                CVCTargetPosition = CVCFlyingOffset;
+            
         }
 
         if (grounded == false)
@@ -311,8 +306,6 @@ public class HoverController : MonoBehaviour
         if (!grounded && timeSinceGroundSensed > 0.2f && raceManager != null)
         {
             raceManager.shipGrounded = false;
-            audioTargetVolume -= 0.2f;
-            audioTargetPitch += 0.5f;
         }
         else if (raceManager != null) { raceManager.shipGrounded = true; }
 
@@ -324,7 +317,6 @@ public class HoverController : MonoBehaviour
 
         ForwardSpeed();
 
-        AudioLerp();
 
 
         //Final Rot 
@@ -382,13 +374,18 @@ public class HoverController : MonoBehaviour
 
     private void CameraMovements()
     {
-        //Camera
-        /*if (rotDifferences > 10)
-        {
-            CVCTargetPosition = CVCSharpRotOffset; //CVCOffset - new Vector3(0, 3, 0);
-        }*/
+
         float cameraRotLerp = Mathf.InverseLerp(0, 10, rotDifferences);
-        CVCTargetPosition = Vector3.Slerp(CVCOffset, CVCSharpRotOffset, cameraRotLerp);
+        if (timeSinceGroundSensed > hangTime && raceManager.crntType == RaceManager.RaceType.Land)
+        {
+            CVCTargetPosition = CVCFlyingOffset; Debug.Log("is land");
+        }
+        else {
+            CVCTargetPosition = Vector3.Slerp(CVCOffset, CVCSharpRotOffset, cameraRotLerp);
+        }
+
+
+        
         float wiggleMultiplier = Mathf.InverseLerp(minNoiseSpeed, maxNoiseSpeed, usedAcceleration);
         CVC.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = CVCNoiseMaxAmplitude * wiggleMultiplier;
         CVC.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset = Vector3.Slerp(CVC.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset, CVCTargetPosition, Time.deltaTime * CVCPositionInterpolation);
@@ -411,8 +408,7 @@ public class HoverController : MonoBehaviour
     }
     private void AudioLerp()
     {
-        hoverAudioSource.volume = Mathf.Lerp(hoverAudioSource.volume, audioTargetVolume, Time.deltaTime * 1);
-        hoverAudioSource.pitch = Mathf.Lerp(hoverAudioSource.pitch, audioTargetPitch, Time.deltaTime * 1);
+
     }
 
     private void ForwardSpeed()
@@ -514,7 +510,6 @@ public class HoverController : MonoBehaviour
         if (horiInput != 0)
         {
             transform.Rotate(transform.up, targetTurnSpeed, Space.World);
-            audioTargetPitch += 0.2f;
         }
         oldTurnSpeed = targetTurnSpeed;
     }
@@ -557,9 +552,8 @@ public class HoverController : MonoBehaviour
     {
 
         if (collision.gameObject.GetComponent<TerrainCollider>() == null)
-        {   
-            if(crashAudioSource)
-            crashAudioSource.Play();
+        {
+            hoverAudioManager.Bump();
 
             if (crntAcceleration < Mathf.Abs(transform.InverseTransformDirection(rb.velocity).z))
             {
@@ -570,23 +564,20 @@ public class HoverController : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.right, out hit, collisionRayLength))
         {
-            if (crashAudioSource)
-                crashAudioSource.Play();
+            hoverAudioManager.Bump();
 
             wallBashAmount_anal++;
             StartCoroutine(CollisionParticleSpawn(hit.point, Quaternion.FromToRotation(colPS.gameObject.transform.forward, hit.normal)));
         }
         else if (Physics.Raycast(transform.position, transform.right * -1, out hit, collisionRayLength)){
-            if (crashAudioSource)
-                crashAudioSource.Play();
+            hoverAudioManager.Bump();
 
             wallBashAmount_anal++;
             StartCoroutine(CollisionParticleSpawn(hit.point, Quaternion.FromToRotation(colPS.gameObject.transform.forward, hit.normal)));
         }
         else if (Physics.Raycast(transform.position,transform.forward, out hit, collisionRayLength*3))
         {
-            if (crashAudioSource)
-                crashAudioSource.Play();
+            hoverAudioManager.Bump();
 
             wallBashAmount_anal++;
             StartCoroutine(CollisionParticleSpawn(hit.point, Quaternion.FromToRotation(colPS.gameObject.transform.forward, hit.normal)));
@@ -612,8 +603,7 @@ public class HoverController : MonoBehaviour
         }
         else if (Physics.Raycast(transform.position, transform.forward, out hit, collisionRayLength * 3))
         {
-            if (crashAudioSource)
-                crashAudioSource.Play();
+            hoverAudioManager.Bump();
             StartCoroutine(CollisionParticleSpawn(hit.point, Quaternion.FromToRotation(colPS.gameObject.transform.forward, hit.normal)));
             Debug.Log("bashing" + crntAcceleration);
             wallBashTime_anal += Time.deltaTime;

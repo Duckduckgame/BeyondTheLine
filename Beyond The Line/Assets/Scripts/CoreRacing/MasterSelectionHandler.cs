@@ -12,7 +12,7 @@ public class MasterSelectionHandler : MonoBehaviour
 
     RaceManager crntRaceManager;
     [SerializeField]
-    AudioSource audioSource;
+    AudioSource MusicSource;
     // Start is called before the first frame update
 
     private static MasterSelectionHandler _instance;
@@ -62,12 +62,12 @@ public class MasterSelectionHandler : MonoBehaviour
             crntRaceManager = FindObjectOfType<RaceManager>();
             crntRaceManager.crntType = RaceManager.RaceType.Track;
             crntRaceManager.player = selectedVehicle;
-            if(audioSource.isPlaying) audioSource.Stop();
+            if(MusicSource.isPlaying) MusicSource.Stop();
 
         }
         else
         {
-            if (!audioSource.isPlaying) audioSource.Play();
+            if (!MusicSource.isPlaying) MusicSource.Play();
         }
     }
 }

@@ -24,7 +24,11 @@ public class RaceSelectHandler : MonoBehaviour
     MasterSelectionHandler masterSelectionHandler;
     [SerializeField]
     string lastSceneToLoad;
-
+    AudioSource audioSource;
+    [SerializeField]
+    AudioClip whoosh;
+    [SerializeField]
+    AudioClip select;
     UICarInfo carInfo;
     // Start is called before the first frame update
     void Start()
@@ -34,6 +38,7 @@ public class RaceSelectHandler : MonoBehaviour
         selectedTrackOBJ = tracks[movementIndex];
         Debug.Log(selectedTrackOBJ.transform.name);
         masterSelectionHandler = FindObjectOfType<MasterSelectionHandler>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -68,7 +73,7 @@ public class RaceSelectHandler : MonoBehaviour
         if (selectedTrackOBJ.GetComponent<UISelectionObject>().selectionType == UISelectionObject.SelectionType.Track)
         {
             masterSelectionHandler.selectedScene = selectedTrackOBJ.GetComponent<UISelectionObject>().stringToLoad;
-            SceneManager.LoadSceneAsync("Car Select");
+            StartCoroutine(StartGame());
         }
         if (selectedTrackOBJ.GetComponent<UISelectionObject>().selectionType == UISelectionObject.SelectionType.Vehicle)
         {
@@ -78,6 +83,8 @@ public class RaceSelectHandler : MonoBehaviour
     }
     public void ShiftRight()
     {
+        audioSource.clip = whoosh;
+        audioSource.Play();
         if (carInfo) carInfo.UpdateCarInfo();
         movementIndex--;
         if (movementIndex < 0) movementIndex += tracks.Length;
@@ -94,6 +101,8 @@ public class RaceSelectHandler : MonoBehaviour
 
     public void ShiftLeft()
     {
+        audioSource.clip = whoosh;
+        audioSource.Play();
         if (carInfo) carInfo.UpdateCarInfo();
         movementIndex++;
         if (movementIndex < 0) movementIndex += tracks.Length;
@@ -110,5 +119,15 @@ public class RaceSelectHandler : MonoBehaviour
     public void BackToMainMenu()
     {
         SceneManager.LoadScene(0);
+    }
+
+
+    IEnumerator StartGame()
+    {
+        audioSource.clip = select;
+        audioSource.Play();
+        yield return new WaitForSecondsRealtime(audioSource.clip.length);
+        SceneManager.LoadScene("Car Select");
+        yield return null;
     }
 }
