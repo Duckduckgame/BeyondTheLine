@@ -50,12 +50,12 @@ Material:
     - _Blend: 0
     - _BlendOp: 0
     - _BumpScale: 1
-    - _CameraFadingEnabled: 0
-    - _CameraFarFadeDistance: 2
-    - _CameraNearFadeDistance: 1
+    - _CameraFadingEnabled: 1
+    - _CameraFarFadeDistance: 5052.51
+    - _CameraNearFadeDistance: 1000
     - _ColorMode: 0
     - _Cull: 1
-    - _Cutoff: 0.5
+    - _Cutoff: 0.493
     - _DistortionBlend: 0.5
     - _DistortionEnabled: 0
     - _DistortionStrength: 1
@@ -66,10 +66,10 @@ Material:
     - _Glossiness: 0
     - _InvFade: 3
     - _Light: 0.5
-    - _Metallic: 0
+    - _Metallic: 1
     - _Mode: 0
     - _QueueOffset: 0
-    - _Smoothness: 0
+    - _Smoothness: 1
     - _SmoothnessSource: 0
     - _SoftParticlesEnabled: 1
     - _SoftParticlesFarFadeDistance: 5000
@@ -79,12 +79,12 @@ Material:
     - _Surface: 1
     - _ZWrite: 0
     m_Colors:
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseColor: {r: 0.9056604, g: 0.83416474, b: 0.7305091, a: 1}
     - _BaseColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
-    - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
+    - _CameraFadeParams: {r: 1000, g: 0.00024676067, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmisColor: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 1.0592737, g: 1.0592737, b: 1.0592737, a: 1}
+    - _EmissionColor: {r: 0.98723847, g: 0.9290922, b: 0.86150527, a: 1}
     - _SoftParticleFadeParams: {r: 1000, g: 0.00025, b: 0, a: 0}
     - _SpecColor: {r: 1, g: 1, b: 1, a: 1}
     - _TintColor: {r: 0.5588235, g: 0.5588235, b: 0.5588235, a: 1}

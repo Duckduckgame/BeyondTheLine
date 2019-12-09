@@ -5,22 +5,28 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Menus/MainMenu.unity
     guid: 50cf38988dc5fd145a03dc71518c8530
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Menus/RaceSelect.unity
     guid: 72395dc496787104e9e1a4048d947ab4
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Tracks/Track01.unity
     guid: f8413c47f01d32a438adadeff50ae979
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Tracks/Track02.unity
     guid: 51df126ac88e48e4cb0987d6b50c2451
   - enabled: 1
     path: Assets/Scenes/Tracks/Track00.unity
     guid: f4a1752921a29d841b0cfe4083a65cdc
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Menus/Car Select.unity
     guid: 7223d54e218bd2944a23ca338c843a18
+  - enabled: 1
+    path: Assets/Scenes/DES304 Scenes/Land01.unity
+    guid: 310c42a500f9ac04198a4b92172f3474
+  - enabled: 1
+    path: Assets/Scenes/DES304 Scenes/MainMenu Land.unity
+    guid: ed01c6bf1b598d046a902b41af82e7cc
   m_configObjects: {}

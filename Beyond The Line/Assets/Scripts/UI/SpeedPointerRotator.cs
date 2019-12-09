@@ -24,11 +24,14 @@ public class SpeedPointerRotator : MonoBehaviour
     {
         Vector3 usedEndRot = endRot;
         if (hoverController == null) hoverController = FindObjectOfType<HoverController>();
-        float lerpAmount = Mathf.InverseLerp(0, hoverController.maxAcceleration, hoverController.crntAcceleration);
-        if(hoverController.maxAcceleration - hoverController.usedAcceleration < 5 || hoverController.usedAcceleration > hoverController.maxAcceleration)
+        if (hoverController != null)
         {
-            usedEndRot -= new Vector3(0,0, Random.Range(0, 15));
+            float lerpAmount = Mathf.InverseLerp(0, hoverController.maxAcceleration, hoverController.crntAcceleration);
+            if (hoverController.maxAcceleration - hoverController.usedAcceleration < 5 || hoverController.usedAcceleration > hoverController.maxAcceleration)
+            {
+                usedEndRot -= new Vector3(0, 0, Random.Range(0, 15));
+            }
+            transform.eulerAngles = Vector3.Lerp(startRot, usedEndRot, lerpAmount);
         }
-        transform.eulerAngles = Vector3.Lerp(startRot, usedEndRot, lerpAmount);
     }
 }

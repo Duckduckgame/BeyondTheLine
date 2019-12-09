@@ -13,6 +13,8 @@ public class RaceManager : MonoBehaviour
     public GameObject[] checkpoints;
     CheckpointHandler[] checkpointHandlers;
     LandCheckpointHandler[] landCheckpointHandlers;
+    [SerializeField]
+    Transform landSpawn;
     public int crntCheckpoint;
     
     public float numberOfLaps;
@@ -50,6 +52,13 @@ public class RaceManager : MonoBehaviour
     GameObject medalGO;
     [SerializeField]
     Transform medalSpawnPoint;
+
+    private void OnEnable()
+    {
+        uIManager = FindObjectOfType<UIManager>();
+        uIManager.enabled = true;
+        
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -66,8 +75,11 @@ public class RaceManager : MonoBehaviour
         }
         if (!useUI) uIManager.enabled = false;
 
-
-        if (GameObject.FindGameObjectWithTag("Player") == null)
+        if(crntType == RaceType.Land)
+        {
+            SpawnLandPlayer();
+        }
+        if (GameObject.FindGameObjectWithTag("Player") == null && crntType == RaceType.Track)
         {
             player = Instantiate(player, startPos, startRot);
         }
@@ -80,6 +92,13 @@ public class RaceManager : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         if (audioSource != null)
         audioSource.volume = customVolume;
+    }
+
+    void SpawnLandPlayer()
+    {
+        player = Instantiate(player, landSpawn.position, landSpawn.rotation);
+        FindObjectOfType<SCS>().Player = player.transform;
+        FindObjectOfType<MasterSelectionHandler>().GetComponent<AudioSource>().Stop();
     }
 
     void GetTrackCheckpoints() {
@@ -124,7 +143,16 @@ public class RaceManager : MonoBehaviour
         if (raceOver)
         {
             Time.timeScale = 1;
-            SceneManager.LoadSceneAsync("RaceSelect");
+            if (crntType == RaceType.Track)
+            {
+                SceneManager.LoadSceneAsync("RaceSelect");
+            }
+            else if(crntType == RaceType.Land)
+            {
+                raceOver = false;
+                if(FindObjectOfType<MasterSelectionHandler>() != null) FindObjectOfType<MasterSelectionHandler>().GetComponent<AudioSource>().Play();
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
         }
 
         ShipAudio();
@@ -284,7 +312,6 @@ public class RaceManager : MonoBehaviour
             string scene = SceneManager.GetActiveScene().name.ToString();
             Analytics.CustomEvent("quit: " + scene, new Dictionary<string, object> { { "Track", scene }, { "Vehicle", player.transform.name }, { "TotalTime", totalLapTimes }, { "BestLapTime", bestLap }, { "NumberOfLaps", numberOfLaps }, { "DeathCount", deathCount } });
             SendDeaths();
-        
     }
 
     private void OnDrawGizmos()
@@ -299,4 +326,6 @@ public class RaceManager : MonoBehaviour
             }
         
     }
+
+
 }

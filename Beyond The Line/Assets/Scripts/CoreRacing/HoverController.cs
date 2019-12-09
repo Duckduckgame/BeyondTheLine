@@ -381,7 +381,7 @@ public class HoverController : MonoBehaviour
         float cameraRotLerp = Mathf.InverseLerp(0, 10, rotDifferences);
         if (timeSinceGroundSensed > hangTime && raceManager.crntType == RaceManager.RaceType.Land)
         {
-            CVCTargetPosition = CVCFlyingOffset; Debug.Log("is land");
+            CVCTargetPosition = CVCFlyingOffset;
         }
         else {
             CVCTargetPosition = Vector3.Slerp(CVCOffset, CVCSharpRotOffset, cameraRotLerp);
@@ -595,21 +595,19 @@ public class HoverController : MonoBehaviour
         {
             crntAcceleration -= 2;
             StartCoroutine(CollisionParticleSpawn(hit.point, Quaternion.FromToRotation(colPS.gameObject.transform.forward, hit.normal)));
-            Debug.Log("bashing" + crntAcceleration);
             wallBashTime_anal += Time.deltaTime;
         }
         else if (Physics.Raycast(transform.position, transform.right * -1, out hit, collisionRayLength))
         {
             crntAcceleration -= 2;
             StartCoroutine(CollisionParticleSpawn(hit.point, Quaternion.FromToRotation(colPS.gameObject.transform.forward, hit.normal)));
-            Debug.Log("bashing" + crntAcceleration);
             wallBashTime_anal += Time.deltaTime;
         }
         else if (Physics.Raycast(transform.position, transform.forward, out hit, collisionRayLength * 3))
         {
             hoverAudioManager.Bump();
             StartCoroutine(CollisionParticleSpawn(hit.point, Quaternion.FromToRotation(colPS.gameObject.transform.forward, hit.normal)));
-            Debug.Log("bashing" + crntAcceleration);
+
             wallBashTime_anal += Time.deltaTime;
         }
     }

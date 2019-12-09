@@ -83,6 +83,7 @@ public class UIManager : MonoBehaviour
         raceManager = FindObjectOfType<RaceManager>();
         if (crntMode == UIMode.EndRace) { UpdateEndRaceUI(); }
         float crntLapTimeNum = raceManager.crntLapTime;
+        if(crntMode != UIMode.EndRace)
         crntLapTime.text = Mathf.Floor(crntLapTimeNum / 60).ToString("00") + ":" + (crntLapTimeNum % 60).ToString("00") + ":" + ((crntLapTimeNum*100) % 100).ToString("##");
         lapCount.text = raceManager.crntLap.ToString() + "/" + raceManager.numberOfLaps.ToString();
 
@@ -115,6 +116,7 @@ public class UIManager : MonoBehaviour
 
     public void SetBestLapTime(float time)
     {
+        
         bestLapTime.text = Mathf.Floor(time / 60).ToString("00") + ":" + (time % 60).ToString("00") + ":" + ((time * 1000) % 1000).ToString("00");
     }
 
@@ -122,6 +124,12 @@ public class UIManager : MonoBehaviour
     {
         endRaceTotalTime.text = Mathf.Floor(totalLapTimes / 60).ToString("00") + ":" + (totalLapTimes % 60).ToString("00") + ":" + ((totalLapTimes * 1000) % 1000).ToString("00");
         endRaceBestTime.text = bestLapTime.text;
+
+        if (raceManager.crntType == RaceManager.RaceType.Land)
+        {
+            endRaceTotalTime.text = crntLapTime.text;
+            endRaceBestTime.enabled = false;
+        }
     }
 
     public void RaceCountdown() {
@@ -132,7 +140,7 @@ public class UIManager : MonoBehaviour
     IEnumerator CountDown(int seconds)
     {
         int count = seconds;
-
+        startBar.gameObject.SetActive(true);
         yield return new WaitForSecondsRealtime(0.3f);
         for (float i = 0; i < 1.1f; i += 0.1f)
         {
@@ -166,6 +174,10 @@ public class UIManager : MonoBehaviour
         // count down is finished...
         Time.timeScale = 1f;
         crntMode = UIMode.Race;
+        if(FindObjectOfType<tutorialController>() != null)
+        {
+            Time.timeScale = 0;
+        }
     }
 
 
@@ -203,7 +215,15 @@ public class UIManager : MonoBehaviour
 
     public void EndRace()
     {
-        raceManager.raceOver = true;
+        if (FindObjectOfType<MasterSelectionHandler>().loadLandTut)
+        {
+            SceneManager.LoadScene("MainMenu Land");
+        }
+        if (!FindObjectOfType<MasterSelectionHandler>().loadLandTut)
+        {
+            raceManager.raceOver = true;
+        }
+        
     }
 
     public IEnumerator ReSpawn(GameObject go)
@@ -227,5 +247,10 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 1f;
         yield return null;
     }
-    
+
+    public void LandQuitToMenu()
+    {
+        SceneManager.LoadScene("MainMenu Land");
+    }
+
 }

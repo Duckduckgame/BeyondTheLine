@@ -27,6 +27,7 @@ public class tutorialController : MonoBehaviour
     CanvasGroup boostCanvas;
 
     CanvasGroup crntCanvas;
+    bool seenCanvas = false;
 
     private void Start()
     {
@@ -35,7 +36,7 @@ public class tutorialController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(crntCanvas != null && Input.GetButtonDown("Jump"))
+        if(crntCanvas != null && Input.GetButtonDown("Jump") && !seenCanvas) 
         {
             StartCoroutine(StopCanvas(crntCanvas));
         }
@@ -44,12 +45,14 @@ public class tutorialController : MonoBehaviour
     public void SetCanvas(CanvasGroup canvas)
     {
         crntCanvas = canvas;
+
         StartCoroutine(StartCanvas(canvas));
         
     }
 
     IEnumerator StartCanvas( CanvasGroup canvas)
     {
+        seenCanvas = false;
         for (float i = 0; i < 1.1f; i+= 0.3f)
         {
             canvas.alpha = i;
@@ -63,6 +66,7 @@ public class tutorialController : MonoBehaviour
 
     IEnumerator StopCanvas(CanvasGroup canvas)
     {
+        seenCanvas = true;
         for (float i = 1; i > -0.1; i -= 0.3f)
         {
             canvas.alpha = i;

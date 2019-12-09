@@ -14,6 +14,10 @@ public class MasterSelectionHandler : MonoBehaviour
     RaceManager crntRaceManager;
     [SerializeField]
     AudioSource MusicSource;
+    public bool loadLandTut = false;
+
+    
+    public bool loadAsLand;
     // Start is called before the first frame update
 
     private static MasterSelectionHandler _instance;
@@ -57,14 +61,14 @@ public class MasterSelectionHandler : MonoBehaviour
         {
             StartCoroutine(FindObjectOfType<transitionPlane>().TransitionIn());
         }
-        if(FindObjectOfType<RaceManager>() != null && selectedVehicle != null)
+        if(FindObjectOfType<RaceManager>() != null && selectedVehicle != null && !loadAsLand)
         {
             Analytics.CustomEvent("Race Started", new Dictionary<string, object> { { "Track", SceneManager.GetActiveScene().name.ToString() }, {"Vehicle ", selectedVehicle.transform.name } });
             crntRaceManager = FindObjectOfType<RaceManager>();
             crntRaceManager.crntType = RaceManager.RaceType.Track;
             crntRaceManager.player = selectedVehicle;
+            if(SceneManager.GetActiveScene().name != "Track00")
             if(MusicSource.isPlaying) MusicSource.Stop();
-
         }
         else
         {
@@ -85,4 +89,5 @@ public class MasterSelectionHandler : MonoBehaviour
         SceneManager.LoadScene(selectedScene);
         yield return null;
     }
+
 }

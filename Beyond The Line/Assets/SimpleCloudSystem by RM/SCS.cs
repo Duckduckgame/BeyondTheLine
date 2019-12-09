@@ -12,14 +12,14 @@ public class SCS : MonoBehaviour {
 
 	
 	// Update is called once per frame
-	void Update () {
-		if (!Player)
-			return;
+	void Update ()
+    {
 
-
-        Vector3 pos = Player.transform.position;
-        gameObject.transform.position = new Vector3(pos.x, transform.position.y, pos.z);
-
+        if (Player != null)
+        {
+            Vector3 pos = Player.transform.position;
+            gameObject.transform.position = new Vector3(pos.x, transform.position.y, pos.z);
+        }
 		transform.Rotate(0,Time.deltaTime*CloudsSpeed ,0); 
 	}
 

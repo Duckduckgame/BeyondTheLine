@@ -12,10 +12,20 @@ public class ArrowHandler : MonoBehaviour
     {
         raceManager = FindObjectOfType<RaceManager>();
     }
-
+    private void OnEnable()
+    {
+        raceManager = FindObjectOfType<RaceManager>();
+    }
     // Update is called once per frame
     void Update()
     {
-        transform.LookAt(raceManager.checkpoints[raceManager.crntCheckpoint].transform, Vector3.up);
+        if (FindObjectOfType<RaceManager>() != null)
+        {
+            transform.LookAt(raceManager.checkpoints[raceManager.crntCheckpoint].transform, Vector3.up);
+        }
+        else {
+            if (FindObjectOfType<RaceManager>() != null)
+                raceManager = FindObjectOfType<RaceManager>();
+        }
     }
 }
